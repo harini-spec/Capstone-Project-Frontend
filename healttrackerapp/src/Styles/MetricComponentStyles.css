@@ -1,0 +1,97 @@
+.MetricComponent{
+    min-width: 400px;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid rgb(232, 231, 231);
+}
+
+p{
+    margin: 0px;
+}
+
+button{
+    color: white !important;
+}
+
+.buttons-row{
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-row{
+    display: flex;
+    justify-content: space-around;
+}
+
+.col{
+    text-align: center;
+}
+
+.status-row .col{
+    width: 20px;
+    text-align: center;
+}
+
+.status{
+    border-radius: 5px;
+}
+
+.value-row{
+    display: inline-flex;
+    justify-content: left;
+}
+
+.icon{
+    padding: 35px 10px 10px 10px;
+    font-size: 50px;
+}
+
+.title{
+    padding: 50px 10px 10px 10px;
+    font-size: 25px;
+}
+
+.value{
+    padding-left: 60px;
+    padding-top: 40px;
+    font-size: 40px;
+}
+
+.unit{
+    padding: 55px 10px 10px 10px;
+    font-size: 20px;
+    color: rgb(129, 129, 129);
+}
+
+hr{
+    margin: 20px 0px;
+}
+
+@media screen and (max-width: 1000px){
+    .MetricComponent{
+        min-width: 300px;
+    }
+}   
+
+@media screen and (max-width: 750px){
+    .MetricComponent{
+        min-width: 80%;
+    }
+
+    .value-row{
+        display: flex;
+        justify-content: center;
+    }
+
+    .unit{
+        padding: 55px 10px 10px 10px;
+        font-size: 30px;
+    }
+
+    .value{
+        font-size: 50px;
+        padding-left: 0px;
+    }
+}
