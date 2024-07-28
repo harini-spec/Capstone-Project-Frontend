@@ -1,0 +1,31 @@
+.form-row{
+    display: flex;
+    justify-content: center;
+}
+
+.form-row > div{
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.col2{
+    color: rgb(129, 129, 129);
+    font-size: 25px;
+}
+
+.button-row{
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.card{
+    margin: auto !important;
+    padding: 100px !important;
+    width: 100% !important;
+}

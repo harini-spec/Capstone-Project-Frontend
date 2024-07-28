@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../Services/Axios';
 import '../Styles/MetricComponentStyles.css';
 import { colors } from '../Data/ColorData';
@@ -86,13 +87,26 @@ const MetricComponent = (props) =>  {
                     </div>
                 </div>
 
-                <div className="buttons-row">
-                    {
-                        HealthLog.healthStatus == "--"?
-                            <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>Add</button>
-                        :
-                            <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>Update</button>
-                    }
+                <div className="buttons-row row">
+                    <div className='col'>
+                        {
+                            HealthLog.healthStatus == "--"?
+                                <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>
+                                    <Link className='link' to={`/AddHealthLog/${props.preference.preferenceId}`}>
+                                        Add
+                                    </Link>
+                                </button>
+                            :
+                                <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>
+                                    <Link className='link' to={`/UpdateHealthLog/${props.preference.preferenceId}/${HealthLog.id}`}>
+                                        Update
+                                    </Link>
+                                </button>
+                        }
+                    </div>
+                    <div className='col'>
+                        <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>Targets</button>
+                    </div>
                 </div>
 
             </div>

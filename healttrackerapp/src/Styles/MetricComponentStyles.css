@@ -15,11 +15,6 @@ button{
     color: white !important;
 }
 
-.buttons-row{
-    display: flex;
-    justify-content: space-around;
-}
-
 .flex-row{
     display: flex;
     justify-content: space-around;
