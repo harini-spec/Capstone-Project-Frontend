@@ -1,29 +1,108 @@
-.target-container{
-    height: 100vh;
+.target-container {
     margin: auto;
-    width: 90%;
+    width: 90% !important;
+    min-width: 650px;
 }
 
-.button-row{
+.target-main-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.target-action-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.button-row {
     margin-right: 4%;
 }
 
-.update{
+.target-update, .target-delete {
     margin-right: 10px;
+    margin-top: 5px;
 }
 
-hr{
+hr {
+    width: 100% !important;
     margin: 20px 0px !important;
 }
 
-.target-status-div{
+.target-status-div {
     color: white;
     margin: auto;
     max-width: 170px !important;
     padding: 5px 0px;
 }
 
-.target-status-div p{
+.target-status-div p {
     margin-bottom: 0px;
     border-radius: 30px;
+}
+
+.target-row {
+    margin: 0 !important;
+}
+
+.target-row-header {
+    display: none;
+}
+
+@media screen and (max-width: 1300px) {
+    .target-status-div {
+        max-width: auto !important;
+    }
+
+    .target-container {
+        padding: 0px 10px;
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .target-update, .target-delete {
+        margin-top: 10px;
+        margin-right: 0px !important;
+    }
+
+    .target-action-buttons {
+        padding: 0px !important;
+    }
+
+    .target-row {
+        display: flex;
+        flex-direction: column; 
+        margin-bottom: 20px; 
+    }
+
+    .target-row > div {
+        width: 100%; 
+    }
+
+    .target-header {
+        display: none; 
+    }
+
+    .target-row-header {
+        margin-top: 20px;
+        display: block;
+        font-weight: bold;
+    }
+
+    .actions-header-row{
+        margin-right: 10px;
+    }
+
+    .button-row {
+        display: flex;
+        justify-content: center;
+    }
+
+    .target-update{
+        margin-right: 5px !important;
+    }
 }
