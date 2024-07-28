@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import api from '../Services/Axios';
-import '../Styles/DashBoardStyles.css';
+import api from '../../Services/Axios';
+import '../../Styles/DashBoardStyles.css';
 import MetricComponent from './MetricComponent';
 
-const DashBoard = () => {
+export const DashBoardComponent = () => {
     
     const [UserPreferences, setUserPreferences] = useState([])
 
@@ -41,5 +41,3 @@ const DashBoard = () => {
         </div>
     );
 };
-
-export default DashBoard;

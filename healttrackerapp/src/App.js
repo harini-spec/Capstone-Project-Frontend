@@ -1,10 +1,12 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
-import DashBoard from './Components/DashBoard';
 import './Styles/MainStyles.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { AddHealthLog } from './Components/HealthLog/AddHealthLog';
 import 'react-toastify/dist/ReactToastify.css';
+import { DashBoardComponent } from './Components/DashBoard/DashBoardComponent';
+import { HealthLogComponent } from './Components/HealthLog/HealthLogComponent';
+import { GetAllTargetsComponent } from './Components/Target/GetAllTargetsComponent';
+import { TargetFormComponent } from './Components/Target/TargetFormComponent';
 
 function App() {
   return (
@@ -12,13 +14,12 @@ function App() {
       {/* <NavBar /> */}
       <BrowserRouter>
         <Routes>
-          <Route path="/DashBoard" element={<DashBoard/>}/>
-          <Route path="/AddHealthLog/:PrefId" element={<AddHealthLog isUpdateMode={false}/>}/>
-          <Route path="/UpdateHealthLog/:PrefId/:HealthLogId" element={<AddHealthLog isUpdateMode={true}/>}/>
-
-          {/* <Route path="/" element={<MoviesComponent movies={movies} getMovies={getMovies} setMovies={setMovies}/>}/> */}
-          {/* <Route path="/addMovie" element={<AddMovieComponent/>}/>
-          <Route path = "/updateMovie/:id" element={<UpdateMovieComponent/>}/> */}
+          <Route path="/DashBoard" element={<DashBoardComponent/>}/>
+          <Route path="/AddHealthLog/:PrefId" element={<HealthLogComponent isUpdateMode={false}/>}/>
+          <Route path="/UpdateHealthLog/:PrefId/:HealthLogId" element={<HealthLogComponent isUpdateMode={true}/>}/>
+          <Route path="/Alltargets/:PrefId" element={<GetAllTargetsComponent/>}/>
+          <Route path="/AddTarget/:PrefId" element={<TargetFormComponent isUpdateMode={false}/>}/>
+          <Route path="/UpdateTarget/:PrefId/:TargetId" element={<TargetFormComponent isUpdateMode={true}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

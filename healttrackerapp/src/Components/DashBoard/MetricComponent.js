@@ -1,47 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../Services/Axios';
-import '../Styles/MetricComponentStyles.css';
-import { colors } from '../Data/ColorData';
-import { icons } from '../Data/IconData';
+import api from '../../Services/Axios';
+import '../../Styles/MetricComponentStyles.css';
+import { colors } from '../../Data/ColorData';
+import { icons } from '../../Data/IconData';
+import { useHealthLog } from '../hooks/useHealthLog';
   
 const MetricComponent = (props) =>  {
 
-    const [HealthLog, setHealthLog] = useState({});
-
-    useEffect(() => {
-        GetHealthLog(props.preference.preferenceId);
-    }, [])
-
-    const GetHealthLog = async (prefId) => {
-        try{
-            const yourConfig = {
-                headers: {
-                   Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            }
-            const response = await api.get(`HealthLog/GetHealthLog?PrefId=${prefId}`, yourConfig);
-
-            if(response.data.healthStatus){
-                response.data.healthStatus = response.data.healthStatus.replace(/_/g, " ")
-            }
-            else{
-                response.data.targetStatus = "--";
-            }
-
-            if(response.data.targetStatus){
-                response.data.targetStatus = response.data.targetStatus.replace(/_/g, " ")
-            }
-            else{
-                response.data.targetStatus = "No Target Set";
-            }
-
-            setHealthLog(response.data);
-        }
-        catch(err){
-            setHealthLog({value: "--", healthStatus: "--", targetStatus: "--"});
-        }
-    }
+    const [HealthLog, setHealthLog] = useHealthLog(props.preference.preferenceId, true);
 
     return (
         <div className="MetricComponent" id={props.preference.preferenceId}>
@@ -58,7 +25,7 @@ const MetricComponent = (props) =>  {
             <hr></hr>
 
             <div className="status-div">
-                <div className="row">
+                <div className="row pb-2">
                     <div className="col">
                         <p>Health Status</p>
                     </div>
@@ -66,7 +33,7 @@ const MetricComponent = (props) =>  {
                         <p>Target Status</p>
                     </div>
                 </div>
-                <div className="row status-row">
+                <div className="row status-row pb-3">
                     <div className="col">
                         <p className="status" 
                             style={{
@@ -87,7 +54,7 @@ const MetricComponent = (props) =>  {
                     </div>
                 </div>
 
-                <div className="buttons-row row">
+                <div className="row">
                     <div className='col'>
                         {
                             HealthLog.healthStatus == "--"?
@@ -105,7 +72,11 @@ const MetricComponent = (props) =>  {
                         }
                     </div>
                     <div className='col'>
-                        <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>Targets</button>
+                        <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>
+                            <Link className='link' to={`/Alltargets/${props.preference.preferenceId}`}>
+                                Targets
+                            </Link>
+                        </button>
                     </div>
                 </div>
 

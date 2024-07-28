@@ -1,69 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { icons } from '../../Data/IconData.js';
-import '../../Styles/LogStyles.css';
 import api from '../../Services/Axios.js';
-import { colors } from '../../Data/ColorData.js';
 import { toast, ToastContainer } from 'react-toastify';
+import '../../Styles/LogStyles.css';
+import { useMetric } from '../hooks/useMetric.js';
+import { useHealthLog } from '../hooks/useHealthLog.js';
+import { useColor } from '../hooks/useColor.js';
 
-  export const AddHealthLog = (props) => {
+
+export const HealthLogComponent = (props) => {
 
     const { PrefId, HealthLogId } = useParams();
     const Navigate = useNavigate();
 
-    const [Metric, setMetric] = useState({});
-    const [Color, setColor] = useState("");
-    const [Log, setLog] = useState({
-        preferenceId: PrefId,
-        value: 0
-    });
-
-    useEffect(() => {
-        GetMetricData();
-        GetColor();
-        if(props.isUpdateMode){
-            GetHealthLog();
-        }
-    }, []);
-
-    const GetMetricData = async () => {
-        try{
-            const yourConfig = {
-                headers: {
-                   Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            }
-            const response = await api.get(`Metric/GetPreferenceDTOByPrefId?PrefId=${PrefId}`, yourConfig);
-            setMetric(response.data);
-        }
-        catch(err){
-            setMetric({MetricType: "--", MetricUnit: "--"});
-        }
-    }
-
-    const GetHealthLog = async () => {
-        try{
-            const yourConfig = {
-                headers: {
-                   Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            }
-            const response = await api.get(`HealthLog/GetHealthLog?PrefId=${PrefId}`, yourConfig);
-            setLog({
-                preferenceId: PrefId,
-                value: response.data.value
-            });
-        }
-        catch(err){
-            if(err.response && err.response.status === 404)
-                toast.error("Log Not Found");
-        }
-    }
-
-    const GetColor = () => {
-        var keys = Object.keys(colors);
-        setColor(colors[keys[ keys.length * Math.random() << 0]]);
-    }
+    const [Color, setColor] = useColor();
+    const [Metric] = useMetric(PrefId);
+    const [Log, setLog] = useHealthLog(PrefId, props.isUpdateMode);
 
     const onInputChange = (e) => {
       setLog({...Log, [e.target.name]: e.target.value});
@@ -80,7 +33,7 @@ import { toast, ToastContainer } from 'react-toastify';
             try{
                 const response = await api.put("HealthLog/UpdateHealthLog?logId="+HealthLogId+"&value="+Log.value, "", yourConfig);
                 if(response.status === 200){
-                    toast.success('Log Updated Successfully', { timeOut: 0 });
+                    toast.success('Log Updated Successfully');
                 }
                 setTimeout(() => {
                     Navigate('/DashBoard'); 
@@ -96,14 +49,18 @@ import { toast, ToastContainer } from 'react-toastify';
             try{
                 const response = await api.post("HealthLog/AddHealthLog", Log, yourConfig);
                 if(response.status === 200){
-                    toast.success('Log Added Successfully', { timeOut: 0 });
+                    toast.success('Log Added Successfully');
                 }
                 setTimeout(() => {
                     Navigate('/DashBoard'); 
                 }, 4000);
             }
             catch(err){
-                if(err.response && err.response.status === 409){
+                if(err.response && err.response.status === 404 && err.response.data.errorMessage === "Height Log not entered"){
+                    toast.error("Enter your Height First!");
+                    console.log(err.response.data);
+                }
+                else if(err.response && err.response.status === 409){
                     toast.error("Log Already Added");
                 }
             }

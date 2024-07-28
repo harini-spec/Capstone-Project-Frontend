@@ -1,0 +1,29 @@
+.target-container{
+    height: 100vh;
+    margin: auto;
+    width: 90%;
+}
+
+.button-row{
+    margin-right: 4%;
+}
+
+.update{
+    margin-right: 10px;
+}
+
+hr{
+    margin: 20px 0px !important;
+}
+
+.target-status-div{
+    color: white;
+    margin: auto;
+    max-width: 170px !important;
+    padding: 5px 0px;
+}
+
+.target-status-div p{
+    margin-bottom: 0px;
+    border-radius: 30px;
+}
