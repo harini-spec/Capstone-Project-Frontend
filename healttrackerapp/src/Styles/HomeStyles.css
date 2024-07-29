@@ -1,0 +1,47 @@
+.home-main-container{
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.image-container{
+    padding-left: 0%;
+    flex: 50%;
+}
+
+.text-container{
+    flex: 40%;
+    margin: auto 5%;
+}
+
+.text-container h1, .text-container h3{
+    color: rgb(109,139,236);
+}
+
+.text-container h1{
+    font-size: 4rem;
+}
+
+img{
+    border-radius: 10px;
+    width: 60%;
+}
+
+.image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 1000px){
+
+    .home-main-container{
+        padding: 5%;
+    }
+
+    .image-container{
+        margin-top: 5%;
+    }
+    
+}

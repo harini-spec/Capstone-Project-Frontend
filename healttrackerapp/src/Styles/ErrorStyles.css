@@ -9,6 +9,5 @@
 .error-msg{
     color: red;
     /* color: ; */
-    text-align: right;
-    margin-right: 10%;
+    text-align: left;
 }

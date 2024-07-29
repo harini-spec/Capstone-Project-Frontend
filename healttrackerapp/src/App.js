@@ -8,6 +8,9 @@ import { DashBoardComponent } from './Components/DashBoard/DashBoardComponent';
 import { HealthLogComponent } from './Components/HealthLog/HealthLogComponent';
 import { GetAllTargetsComponent } from './Components/Target/GetAllTargetsComponent';
 import { TargetFormComponent } from './Components/Target/TargetFormComponent';
+import { HomeComponent } from './Components/HomeComponent';
+import { LoginComponent } from './Components/Auth/LoginComponent';
+import { RegisterComponent } from './Components/Auth/RegisterComponent';
 
 function App() {
   return (
@@ -15,12 +18,15 @@ function App() {
       {/* <NavBar /> */}
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<HomeComponent/>}/>
           <Route path="/DashBoard" element={<DashBoardComponent/>}/>
           <Route path="/AddHealthLog/:PrefId" element={<HealthLogComponent isUpdateMode={false}/>}/>
           <Route path="/UpdateHealthLog/:PrefId/:HealthLogId" element={<HealthLogComponent isUpdateMode={true}/>}/>
           <Route path="/Alltargets/:PrefId" element={<GetAllTargetsComponent/>}/>
           <Route path="/AddTarget/:PrefId" element={<TargetFormComponent isUpdateMode={false}/>}/>
           <Route path="/UpdateTarget/:PrefId/:TargetId" element={<TargetFormComponent isUpdateMode={true}/>}/>
+          <Route path="/Login" element={<LoginComponent/>}/>
+          <Route path="/Register" element={<RegisterComponent/>}/>
           {/* /UserPreferences
           /Login */}
         </Routes>
