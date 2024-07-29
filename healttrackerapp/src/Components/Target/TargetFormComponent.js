@@ -5,6 +5,7 @@ import api from '../../Services/Axios.js';
 import { useMetric } from '../hooks/useMetric.js';
 import { toast, ToastContainer } from 'react-toastify';
 import { useColor } from '../hooks/useColor.js';
+import '../../Styles/ErrorStyles.css';
 
 export const TargetFormComponent = (props) =>  {
 
@@ -42,71 +43,87 @@ export const TargetFormComponent = (props) =>  {
         }          
     }
 
+    const validateValues = () => {
+        var min = document.getElementById("min-form").value;
+        var max = document.getElementById("max-form").value;
+        var date = document.getElementById("date-form").value;
+        if(min === "" || min === null || min === undefined || min < 0 || max === "" || max === null || max === undefined || max < 0 || date === "" || date === null || date === undefined){
+            return false;
+        }
+        return true;
+    }
+
     const onInputChange = (e) => {
+        validateValues();
         setTarget({...Target, [e.target.name]: e.target.value});
     }
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        const yourConfig = {
-            headers: {
-               Authorization: "Bearer " + localStorage.getItem("token")
+        if(validateValues()){
+            const yourConfig = {
+                headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+                }
             }
-        }
-        if(props.isUpdateMode){
-            try{
-                const updatedTarget = {
-                    ...Target,
-                    targetId: TargetId
-                };
+            if(props.isUpdateMode){
+                try{
+                    const updatedTarget = {
+                        ...Target,
+                        targetId: TargetId
+                    };
 
-                const response = await api.put("Target/UpdateTarget", updatedTarget, yourConfig);
-                if(response.status === 200){
-                    toast.success('Target Updated Successfully');
+                    const response = await api.put("Target/UpdateTarget", updatedTarget, yourConfig);
+                    if(response.status === 200){
+                        toast.success('Target Updated Successfully');
+                    }
+                    setTimeout(() => {
+                        Navigate('/Alltargets/'+PrefId); 
+                    }, 4000);
                 }
-                setTimeout(() => {
-                    Navigate('/Alltargets/'+PrefId); 
-                }, 4000);
+                catch(err){
+                    if(err.response && err.response.status === 422){
+                        toast.error("Can't add Target in past date");
+                    }
+                    else if(err.response && err.response.status === 404){
+                        toast.error("Target Not Found");
+                    }
+                    else if(err.response.status === 409){
+                        toast.error("Target Already Added for this date!");
+                    }
+                    else{
+                        toast.error("Something went wrong!");
+                    }
+                }
             }
-            catch(err){
-                if(err.response && err.response.status === 422){
-                    toast.error("Can't add Target in past date");
+            else{
+                try{
+                    const response = await api.post("Target/AddTarget", Target, yourConfig);
+                    if(response.status === 200){
+                        toast.success('Target Added Successfully');
+                    }
+                    setTimeout(() => {
+                        Navigate('/Alltargets/'+PrefId); 
+                    }, 4000);
                 }
-                else if(err.response && err.response.status === 404){
-                    toast.error("Target Not Found");
-                }
-                else if(err.response.status === 409){
-                    toast.error("Target Already Added for this date!");
-                }
-                else{
-                    toast.error("Something went wrong!");
+                catch(err){
+                    if(err.response && err.response.status === 422){
+                        toast.error("Can't add Target in past date");
+                    }
+                    else if(err.response && err.response.status === 404){
+                        toast.error("Preference Not Found");
+                    }
+                    else if(err.response && err.response.status === 409){
+                        toast.error("Target Already Added for this date!");
+                    }
+                    else{
+                        toast.error("Something went wrong!");
+                    }
                 }
             }
         }
         else{
-            try{
-                const response = await api.post("Target/AddTarget", Target, yourConfig);
-                if(response.status === 200){
-                    toast.success('Target Added Successfully');
-                }
-                setTimeout(() => {
-                    Navigate('/Alltargets/'+PrefId); 
-                }, 4000);
-            }
-            catch(err){
-                if(err.response && err.response.status === 422){
-                    toast.error("Can't add Target in past date");
-                }
-                else if(err.response && err.response.status === 404){
-                    toast.error("Preference Not Found");
-                }
-                else if(err.response && err.response.status === 409){
-                    toast.error("Target Already Added for this date!");
-                }
-                else{
-                    toast.error("Something went wrong!");
-                }
-            }
+            toast.error("Enter correct Target Values");
         }
     }
 
@@ -125,7 +142,10 @@ export const TargetFormComponent = (props) =>  {
                                 <form onSubmit={(e) => onSubmit(e)}>
                                     <div className='form-row pb-4'>
                                             <div className='form-group col1'>
-                                                <input type="number" placeholder="Min Value" name="targetMinValue" className='form-control' value={Target.targetMinValue}
+                                                <input type="number" placeholder="Min Value" name="targetMinValue" 
+                                                className='form-control' value={Target.targetMinValue}
+                                                step="0.01"
+                                                id="min-form"
                                                 onChange={(e)=>onInputChange(e)}/>
                                             </div>
                                             <div className='col2'>
@@ -134,7 +154,10 @@ export const TargetFormComponent = (props) =>  {
                                     </div>
                                     <div className='form-row pb-4'>
                                             <div className='form-group col1'>
-                                                <input type="number" placeholder="Max Value" name="targetMaxValue" className='form-control' value={Target.targetMaxValue}
+                                                <input type="number" placeholder="Max Value" name="targetMaxValue" 
+                                                className='form-control' value={Target.targetMaxValue}
+                                                step="0.01"
+                                                id="max-form"
                                                 onChange={(e)=>onInputChange(e)}/>
                                             </div>
                                             <div className='col2'>
@@ -143,7 +166,9 @@ export const TargetFormComponent = (props) =>  {
                                     </div>
                                     <div className='form-row pb-4'>
                                             <div className='form-group col1'>
-                                                <input type="date" placeholder="Target Date" name="targetDate" className='form-control' value={Target.targetDate.slice(0, 10)}
+                                                <input type="date" placeholder="Target Date" name="targetDate" 
+                                                className='form-control' value={Target.targetDate.slice(0, 10)}
+                                                id="date-form"
                                                 onChange={(e)=>onInputChange(e)}/>
                                             </div>
                                     </div>

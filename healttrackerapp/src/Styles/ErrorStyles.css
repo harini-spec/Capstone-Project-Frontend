@@ -1,0 +1,14 @@
+.error{
+    border: 1px solid red;
+}
+
+.correct{
+    border: 1px solid green;
+}
+
+.error-msg{
+    color: red;
+    /* color: ; */
+    text-align: right;
+    margin-right: 10%;
+}

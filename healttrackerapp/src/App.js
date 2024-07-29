@@ -1,7 +1,8 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Routes } from 'react-router';
 import './Styles/MainStyles.css';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'react-toastify/dist/ReactToastify.css';
 import { DashBoardComponent } from './Components/DashBoard/DashBoardComponent';
 import { HealthLogComponent } from './Components/HealthLog/HealthLogComponent';
@@ -20,6 +21,8 @@ function App() {
           <Route path="/Alltargets/:PrefId" element={<GetAllTargetsComponent/>}/>
           <Route path="/AddTarget/:PrefId" element={<TargetFormComponent isUpdateMode={false}/>}/>
           <Route path="/UpdateTarget/:PrefId/:TargetId" element={<TargetFormComponent isUpdateMode={true}/>}/>
+          {/* /UserPreferences
+          /Login */}
         </Routes>
       </BrowserRouter>
     </div>

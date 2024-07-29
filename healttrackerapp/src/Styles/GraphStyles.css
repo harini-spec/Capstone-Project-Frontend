@@ -1,0 +1,34 @@
+.graph-div{
+    width: 90%;
+    margin: auto;
+}
+
+select{
+    background-color: rgb(108,117,125);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+option{
+    background-color: white;
+    color: black;
+}
+
+.category-header{
+    padding: 5% 0 2% 1%;
+}
+
+.category{
+    padding: 0% 0 2% 1%;
+}
+
+#duration{
+    margin-left: 15px;
+}
+
+.loading{
+    height: 100vh;
+    /* padding: 30px; */
+    text-align: center;
+}

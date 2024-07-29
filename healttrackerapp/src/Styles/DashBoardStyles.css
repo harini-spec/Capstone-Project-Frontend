@@ -10,3 +10,12 @@
         justify-content: center;
     }
 }
+
+.overview-header{
+    padding: 5% 0 2% 5%;
+}
+
+.date-para{
+    color: rgb(106, 105, 105);
+    font-size: 1.2em;
+}
