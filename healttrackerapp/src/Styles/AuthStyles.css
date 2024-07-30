@@ -33,18 +33,18 @@
     justify-content: center;
 }
 
-.form-row {
+.auth-container .form-row {
     display: flex;
     justify-content: space-between;
 }
 
-.form-group {
+.auth-container .form-group {
     display: flex;
     flex-direction: column;
     margin: 10px 0;
 }
 
-.form-control {
+.auth-container .form-control {
     padding: 10px;
     font-size: 16px;
     margin-top: 5px;
@@ -55,7 +55,7 @@
     margin: auto 0px;
 }
 
-.btn {
+.auth-container .btn {
     width: 100%;
     padding: 10px;
     font-size: 16px;

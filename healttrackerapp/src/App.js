@@ -12,11 +12,12 @@ import { HomeComponent } from './Components/HomeComponent';
 import { LoginComponent } from './Components/Auth/LoginComponent';
 import { RegisterComponent } from './Components/Auth/RegisterComponent';
 import { UserPreferencesComponent } from './Components/Metric/UserPreferencesComponent';
+import { Navbar } from './Components/Navbar';
 
 function App() {
   return (
     <div className="App">
-      {/* <NavBar /> */}
+      <Navbar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeComponent/>}/>

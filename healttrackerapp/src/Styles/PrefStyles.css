@@ -1,15 +1,30 @@
 .pref-card{
     margin: 10px;
-    padding: 10px;
+    padding: 50px !important;
     border-radius: 10px;
     color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: auto;
+    margin: 10px !important;
+    min-height: 300px;
 }
 
 .pref-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 80% !important;
+    margin: auto;
+    width: 90% !important;
+}
+
+.pref-button-div{
+    padding: auto !important;
+}
+
+.pref-button-div button{
+    background-color: rgb(15,39,135);
+    width: 30%;
+    padding: 20px 0px;
+    margin-bottom: 50px;
+}
+
+.pref-main-container{
+    background-color: rgb(255, 252, 248) !important;
+    height: auto !important;
 }
