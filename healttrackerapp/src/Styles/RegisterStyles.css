@@ -82,6 +82,18 @@
     cursor: pointer;
 }
 
+.email-error{
+    margin-left: 15px;
+}
+
+.pwd-error{
+    height: 100px;
+}
+
+.register-form-container .form-group p{
+    height: 15px;
+}
+
 @media screen and (max-width: 768px) {
 
     .register-main-container {

@@ -1,14 +1,16 @@
 import { React, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../Styles/RegisterStyles.css';
 import Tracker from '../../Assets/Register.jpg';
 import '../../Styles/ErrorStyles.css';
+import { toast, ToastContainer } from 'react-toastify';
+import api from '../../Services/Axios';
   
  export const RegisterComponent = () =>  {
 
-	useEffect(() => {
-	}, []);
+	const Navigate = useNavigate();
 
-	const [RegisterData, setRegisterData] = useState({});
+	const [RegisterData, setRegisterData] = useState({gender: "Male"});
 	const [ErrorData, setErrorData] = useState({});
 
 	const selectRole = (Role) => {
@@ -19,16 +21,39 @@ import '../../Styles/ErrorStyles.css';
 		setRegisterData({...RegisterData, role	: Role});
 	}
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
+		if(ErrorData.name || ErrorData.age || ErrorData.phone || ErrorData.email || ErrorData.password || ErrorData.confirm_password || ErrorData.height || ErrorData.weight || !RegisterData.role) {
+			toast.error("Invalid Data");
+			return;
+		}
+
+		try {
+			const yourConfig = {
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("token")
+				}
+			};
+			await api.post(`http://localhost:5273/api/User/RegisterUser`, RegisterData, yourConfig);
+
+			toast.success("Registration successful");
+			setTimeout(() => {
+				Navigate('/Login'); 
+			}, 4000);
+		} catch (err) {
+			if(err.response.status == 409)
+				toast.error("Email ID already exists");
+			else
+				toast.error("Registration failed");
+		}
+
 		console.log(RegisterData);
 	}	
 
 	const validateData = (e) => {
-		console.log(e.target.name, e.target.value);
+		setErrorData({...ErrorData, [e.target.name]: ""});
 
 		if(e.target.name == "name"){
-			setErrorData({...ErrorData, [e.target.name]: ""});
 			if(e.target.value.length < 3) {
 				setErrorData({...ErrorData, [e.target.name]: "Name must be atleast 3 characters"});
 				return false;
@@ -37,7 +62,6 @@ import '../../Styles/ErrorStyles.css';
 		}
 
 		if(e.target.name == "age"){
-			setErrorData({...ErrorData, [e.target.name]: ""});
 			if(e.target.value < 18) {
 				console.log("Age must be atleast 18");
 				setErrorData({...ErrorData, [e.target.name]: "Age must be atleast 18"});
@@ -47,7 +71,6 @@ import '../../Styles/ErrorStyles.css';
 		}
 
 		if(e.target.name == "phone"){
-			setErrorData({...ErrorData, [e.target.name]: ""});
 			const re_phone = /^\d{10}$/;
 			if(e.target.value.length != 10 || !re_phone.test(e.target.value)) {
 				setErrorData({...ErrorData, [e.target.name]: "Invalid Phone Number"});
@@ -56,36 +79,29 @@ import '../../Styles/ErrorStyles.css';
 			return true;
 		}
 
-		if(e.target.name == "height"){
-			setErrorData({...ErrorData, [e.target.name]: ""});
-			if(e.target.value < 0) {
-				setErrorData({...ErrorData, [e.target.name]: "Invalid Height"});
-				return false;
-			}
-			return true;
-		}
-
-		if(e.target.name == "weight"){
-			setErrorData({...ErrorData, [e.target.name]: ""});
-			if(e.target.value < 0) {
-				setErrorData({...ErrorData, [e.target.name]: "Invalid Weight"});
+		if(e.target.name == "email"){
+			const re_email = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+			if(!re_email.test(e.target.value)) {
+				setErrorData({...ErrorData, [e.target.name]: "Invalid Email ID"});
 				return false;
 			}
 			return true;
 		}
 
 		if(e.target.name == "password"){
-			setErrorData({...ErrorData, [e.target.name]: ""});
-			var re_pwd = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-			if(!re_pwd.test(RegisterData.password)) {
-				setErrorData({...ErrorData, [e.target.name]: "Password must be atleast 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character"});
+			console.log("Password Validation");
+			console.log(e.target.value);
+
+			const re_pwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+			if(!re_pwd.test(e.target.value)) {
+				setErrorData({...ErrorData, [e.target.name]: "Must be atleast 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character"});
+				console.log("Password Validation Failed");
 				return false;
 			}
 			return true;
 		}
 
 		if(e.target.name == "confirm_password"){
-			setErrorData({...ErrorData, [e.target.name]: ""});	
 			if(e.target.value != RegisterData.password) {
 				setErrorData({...ErrorData, [e.target.name]: "Password does not match"});
 				return false;
@@ -95,9 +111,9 @@ import '../../Styles/ErrorStyles.css';
 	}
 
 	const onInputChange = (e) => {
-		setRegisterData({...RegisterData, [e.target.name]: e.target.value});
-		setErrorData({...ErrorData, [e.target.name]: ""});
-		validateData(e);
+		if(validateData(e)){
+			setRegisterData({...RegisterData, [e.target.name]: e.target.value});
+		}
 	}
 
 	const handleGenderChange = (event) => {
@@ -106,6 +122,7 @@ import '../../Styles/ErrorStyles.css';
 
 	return (
 	  <div className='register-main-container'>
+		<ToastContainer />
 		<div className="register-container">
 			<div className='register-image-container'>
 				<img src={Tracker}></img>
@@ -115,7 +132,7 @@ import '../../Styles/ErrorStyles.css';
 				<h3 className='text-center'>HOLA! AMIGO</h3>
 				<h5 className='text-center'>Let's get started</h5>
 				<form onSubmit={(e) => onSubmit(e)}>
-					<div className='form-row mt2'>
+					<div className='form-row mt-2'>
 							<div className='form-group col1'>
 								<input type="text" placeholder="Name" name="name" 
 								className='form-control' 
@@ -134,9 +151,8 @@ import '../../Styles/ErrorStyles.css';
 
 					<div className='form-row mt-2'>
 							<div className='form-group gender col1 pt-2'>
-								<select value={RegisterData.gender} className="form-select" onChange={() => handleGenderChange} 
+								<select value={RegisterData.gender} className="form-select" onChange={handleGenderChange} 
 									style={{borderColor: RegisterData.gender ? "green" : "red"}}>
-									<option>Gender</option>
 									<option value="Male">Male</option>
 									<option value="Female">Female</option>
 									<option value="Others">Others</option>
@@ -157,44 +173,26 @@ import '../../Styles/ErrorStyles.css';
 								className='form-control' 
 								style={{borderColor: (RegisterData.email && !ErrorData.email ) ? "green" : "red"}}
 								onChange={(e)=>onInputChange(e)}/>
-								<p className='error-msg'>{ErrorData.email}</p>
+								<p className='error-msg email-error'>{ErrorData.email}</p>
 					</div>
 					<div className='form-row mt-2'>
 							<div className='form-group col1'>
-								<input type="text" placeholder="Password" name="password" 
+								<input type="password" placeholder="Password" name="password" 
 								className='form-control' 
 								style={{borderColor: (RegisterData.password && !ErrorData.password ) ? "green" : "red"}}
 								onChange={(e)=>onInputChange(e)}/>
-								<p className='error-msg'>{ErrorData.password}</p>
+								<p className='error-msg pwd-error'>{ErrorData.password}</p>
 							</div>
 							<div className='form-group col1'>
 								<input type="password" placeholder="Confirm Password" name="confirm_password" 
 								className='form-control' 
 								style={{borderColor: (RegisterData.confirm_password && !ErrorData.confirm_password) ? "green" : "red"}}
 								onChange={(e)=>onInputChange(e)}/>
-								<p className='error-msg'>{ErrorData.confirm_password}</p>
-							</div>
-					</div>
-					<div className='form-row mt-2'>
-							<div className='form-group col1'>
-								<input type="password" placeholder="Height" name="height" 
-								className='form-control' 
-								style={{borderColor: (RegisterData.height && !ErrorData.height) ? "green" : "red"}}
-								step="0.01"
-								onChange={(e)=>onInputChange(e)}/>
-								<p className='error-msg'>{ErrorData.height}</p>
-							</div>
-							<div className='form-group col1'>
-								<input type="number" placeholder="Weight" name="weight" 
-								className='form-control' 
-								style={{borderColor: (RegisterData.weight && !ErrorData.weight) ? "green" : "red"}}
-								step="0.01"
-								onChange={(e)=>onInputChange(e)}/>
-								<p className='error-msg'>{ErrorData.weight}</p>
+								<p className='error-msg pwd-error'>{ErrorData.confirm_password}</p>
 							</div>
 					</div>
 
-					<div className='row role mt-2'>
+					<div className='row role mt-4'>
 						<div className='col user-col' style={{backgroundColor: RegisterData.role == "User" ? "rgb(15,39,135)" : "", 
 							borderColor: RegisterData.role ? "green" : "red",
 							color: RegisterData.role == "User" ? "white" : ""
