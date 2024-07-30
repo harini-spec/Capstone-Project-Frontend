@@ -21,15 +21,16 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomeComponent/>}/>
+          <Route path="/Login" element={<LoginComponent/>}/>
+          <Route path="/Register" element={<RegisterComponent/>}/>
+          <Route path="/UserPreferences" element={<UserPreferencesComponent />}/>
           <Route path="/DashBoard" element={<DashBoardComponent/>}/>
           <Route path="/AddHealthLog/:PrefId" element={<HealthLogComponent isUpdateMode={false}/>}/>
           <Route path="/UpdateHealthLog/:PrefId/:HealthLogId" element={<HealthLogComponent isUpdateMode={true}/>}/>
           <Route path="/Alltargets/:PrefId" element={<GetAllTargetsComponent/>}/>
           <Route path="/AddTarget/:PrefId" element={<TargetFormComponent isUpdateMode={false}/>}/>
           <Route path="/UpdateTarget/:PrefId/:TargetId" element={<TargetFormComponent isUpdateMode={true}/>}/>
-          <Route path="/Login" element={<LoginComponent/>}/>
-          <Route path="/Register" element={<RegisterComponent/>}/>
-          <Route path="/UserPreferences" element={<UserPreferencesComponent />}/>
+          
           {/* /CoachDashBoard */}
           {/* /Suggestions */}
         </Routes>

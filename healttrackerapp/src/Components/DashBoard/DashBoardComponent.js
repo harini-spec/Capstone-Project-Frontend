@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../Styles/DashBoardStyles.css';
 import MetricComponent from './MetricComponent';
 import GraphComponent from './GraphComponent';
@@ -8,17 +7,41 @@ import { MonthNamesData } from '../../Data/MonthNamesData';
 import { ThreeCircles } from 'react-loader-spinner'
 import "../../Styles/ComponentStyles.css";
 import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { useAuthService } from '../../Services/useAuthService';
 
 export const DashBoardComponent = () => {
+
+    const navigate = useNavigate();
     
     const [UserPreferences, setUserPreferences] = useUserPreference();
     const [Loading, setLoading] = useState(true);
+    const [Role, IsExpired] = useAuthService();
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 3000);
-    }, []);
+        const checkAuthentication = () => {
+            if (!localStorage.getItem("token") || IsExpired) {
+                navigate('/Login');
+                return;
+            }
+    
+            if (localStorage.getItem("IsPreferenceSet") === "false") {
+                navigate('/UserPreferences');
+                return;
+            }
+    
+            if (Role === "Coach") {
+                navigate('/Login');
+                return;
+            }
+
+            setTimeout(() => {
+                setLoading(false);
+            }, 3000);
+        };
+
+        checkAuthentication();
+    }, [IsExpired, Role, navigate]);
 
     return (
         <div>

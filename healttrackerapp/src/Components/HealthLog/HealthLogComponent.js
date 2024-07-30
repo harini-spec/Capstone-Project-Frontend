@@ -8,9 +8,13 @@ import { useMetric } from '../hooks/useMetric.js';
 import { useHealthLog } from '../hooks/useHealthLog.js';
 import { useColor } from '../hooks/useColor.js';
 import '../../Styles/ErrorStyles.css';
+import { useAuthService } from '../../Services/useAuthService.js';
 
 export const HealthLogComponent = (props) => {
 
+    const navigate = useNavigate();
+
+    const [Role, IsExpired] = useAuthService();
     const { PrefId, HealthLogId } = useParams();
     const Navigate = useNavigate();
 
@@ -18,6 +22,28 @@ export const HealthLogComponent = (props) => {
     const [Metric] = useMetric(PrefId);
     const [ErrorMsg, setErrorMsg] = useState("");
     const [Log, setLog] = useHealthLog(PrefId, props.isUpdateMode);
+
+    useEffect(() => {
+        const checkAuthentication = () => {
+            if (!localStorage.getItem("token") || IsExpired || Role === "Coach") {
+                navigate('/Login');
+                return;
+            }
+    
+            if (localStorage.getItem("IsPreferenceSet") === "false") {
+                navigate('/UserPreferences');
+                return;
+            }
+    
+            if (Role === "Coach") {
+                navigate('/Login');
+                return;
+            }
+            console.log("Role: " + Role);
+        };
+
+        checkAuthentication();
+    }, [IsExpired, Role, navigate]);
 
     const onInputChange = (e) => {
         setLog({...Log, [e.target.name]: e.target.value});

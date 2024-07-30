@@ -23,7 +23,7 @@ export const useAuthService = () => {
                 }
             }
             catch (error) {
-                toast.error('Invalid token. Login again!', error);
+                console.error('Invalid token. Login again!', error);
             }
         };
         Auth();

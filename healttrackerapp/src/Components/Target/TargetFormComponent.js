@@ -5,6 +5,7 @@ import api from '../../Services/Axios.js';
 import { useMetric } from '../hooks/useMetric.js';
 import { toast, ToastContainer } from 'react-toastify';
 import { useColor } from '../hooks/useColor.js';
+import { useAuthService } from '../../Services/useAuthService.js';
 import '../../Styles/ErrorStyles.css';
 
 export const TargetFormComponent = (props) =>  {
@@ -12,6 +13,7 @@ export const TargetFormComponent = (props) =>  {
     const { PrefId, TargetId } = useParams();
     const Navigate = useNavigate();
 
+    const [Role, IsExpired] = useAuthService();
     const [Color, setColor] = useColor();
     const [Metric] = useMetric(PrefId);
     const [Target, setTarget] = useState({
@@ -22,10 +24,29 @@ export const TargetFormComponent = (props) =>  {
     });
 
     useEffect(() => {
-        if(props.isUpdateMode){
-            GetTargetById();
-        }
-    }, []);
+        const checkAuthentication = () => {
+            if (!localStorage.getItem("token") || IsExpired || Role === "Coach") {
+                Navigate('/Login');
+                return;
+            }
+    
+            if (localStorage.getItem("IsPreferenceSet") === "false") {
+                Navigate('/UserPreferences');
+                return;
+            }
+    
+            if (Role === "Coach") {
+                Navigate('/Login');
+                return;
+            }
+
+            if(props.isUpdateMode){
+                GetTargetById();
+            }
+        };
+
+        checkAuthentication();
+    }, [IsExpired, Role, Navigate]);
 
     const GetTargetById = async () => {
         try{

@@ -1,23 +1,46 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../../Services/Axios.js';
 import '../../Styles/TargetStyles.css';
 import { toast, ToastContainer } from 'react-toastify';
 import { useMetric } from '../hooks/useMetric.js';
 import { useHealthLog } from '../hooks/useHealthLog.js';
+import { useAuthService } from '../../Services/useAuthService.js';  
 
 export const GetAllTargetsComponent = () =>  {
 
     const { PrefId } = useParams();
+    const navigate = useNavigate();
 
     const [HealthLog, setHealthLog] = useHealthLog(PrefId, true);
+    const [Role, IsExpired] = useAuthService();
     const [Targets, setTargets] = useState([]);
     const [ErrorMsg, setErrorMsg] = useState("");
     const [Metric, setMetric] = useMetric(PrefId);
 
     useEffect(() => {
-        GetAllTargets();
-    }, [Targets]);
+        const checkAuthentication = () => {
+            if (!localStorage.getItem("token") || IsExpired || Role === "Coach") {
+                navigate('/Login');
+                return;
+            }
+    
+            if (localStorage.getItem("IsPreferenceSet") === "false") {
+                navigate('/UserPreferences');
+                return;
+            }
+    
+            if (Role === "Coach") {
+                navigate('/Login');
+                return;
+            }
+
+            GetAllTargets();
+        };
+
+        checkAuthentication();
+    }, [IsExpired, Role, navigate, Targets]);
+
 
     const GetAllTargets = async () => {
         try{
