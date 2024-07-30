@@ -40,9 +40,10 @@ export const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse nav-content" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item active">
-							<Link to = "/">Home</Link>
-                        </li>
+						<div className='auth-navs'>
+							<li className="nav-item active">
+								<Link to = "/">Home</Link>
+							</li>
 
 						{
 							!localStorage.getItem('token')?(
@@ -81,13 +82,13 @@ export const Navbar = () => {
 									<li className="nav-item">
 										<Link to = "/UserPreferences">Monitor Preferences</Link>
 									</li>
-									<li className="nav-item" onClick={handleLogout}>
+									<li className="nav-item logout-nav" onClick={handleLogout}>
 										Logout
 									</li>
 								</div>
 							)
 						}
-						
+						</div>
                     </ul>
                 </div>
             </nav>

@@ -20,3 +20,13 @@
 .auth-navs{
     display: flex;
 }
+
+@media screen and (max-width: 768px){
+    .auth-navs{
+        display: block;
+    }
+
+    .logout-nav{
+        margin-right: 10px;
+    }
+}
