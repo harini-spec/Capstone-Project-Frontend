@@ -37,7 +37,7 @@ export const DashBoardComponent = () => {
 
             setTimeout(() => {
                 setLoading(false);
-            }, 3000);
+            }, 2000);
         };
 
         checkAuthentication();

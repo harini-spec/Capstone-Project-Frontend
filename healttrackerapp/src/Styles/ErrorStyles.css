@@ -11,3 +11,10 @@
     /* color: ; */
     text-align: left;
 }
+
+.notfound-error-container{ 
+    text-align: center;
+    width: 70%;
+    height: 100vh;
+    margin: auto;
+}

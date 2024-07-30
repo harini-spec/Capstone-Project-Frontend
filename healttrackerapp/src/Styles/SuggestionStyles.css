@@ -1,0 +1,45 @@
+.suggestion-main-container{
+    height: auto;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.suggestion-container{
+    padding-top: 3%;
+    width: 80%;
+}
+
+.suggestion-list-items{
+    font-size: 1.3rem;
+    border-radius: 10px;
+    padding: 1%;
+    margin: 2%;
+    border-radius: 10px;
+    display: flex;
+}
+
+.suggestion-desc{
+    flex: 80%;
+    padding-left: 10px;
+    text-align: left !important;
+}
+
+.suggestion-date{
+    text-align: right !important;
+    padding: 5px 10px;
+    font-size: 1.1rem;
+    color: rgb(176, 176, 176);
+}
+
+.suggestion-coach-name{
+    color: rgb(203,133,41);
+    padding-left: 10px;
+}
+
+@media screen and (max-width: 500px){
+    .suggestion-list-items{
+        flex-wrap: wrap;
+    }
+}

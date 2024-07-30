@@ -13,6 +13,8 @@ import { LoginComponent } from './Components/Auth/LoginComponent';
 import { RegisterComponent } from './Components/Auth/RegisterComponent';
 import { UserPreferencesComponent } from './Components/Metric/UserPreferencesComponent';
 import { Navbar } from './Components/Navbar';
+import GetAllUserSuggestions from './Components/Suggestion/GetAllUserSuggestions';
+import { ErrorPageComponent } from './Components/Error/ErrorPageComponent';
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route path="*" element={<ErrorPageComponent/>}/>
           <Route path="/" element={<HomeComponent/>}/>
           <Route path="/Login" element={<LoginComponent/>}/>
           <Route path="/Register" element={<RegisterComponent/>}/>
@@ -30,9 +33,9 @@ function App() {
           <Route path="/Alltargets/:PrefId" element={<GetAllTargetsComponent/>}/>
           <Route path="/AddTarget/:PrefId" element={<TargetFormComponent isUpdateMode={false}/>}/>
           <Route path="/UpdateTarget/:PrefId/:TargetId" element={<TargetFormComponent isUpdateMode={true}/>}/>
+          <Route path="/UserSuggestions" element={<GetAllUserSuggestions/>}/>
           
           {/* /CoachDashBoard */}
-          {/* /Suggestions */}
         </Routes>
       </BrowserRouter>
     </div>
