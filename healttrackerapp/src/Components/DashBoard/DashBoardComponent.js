@@ -7,6 +7,7 @@ import { useUserPreference } from '../hooks/useUserPreference';
 import { MonthNamesData } from '../../Data/MonthNamesData';
 import { ThreeCircles } from 'react-loader-spinner'
 import "../../Styles/ComponentStyles.css";
+import { ToastContainer } from 'react-toastify';
 
 export const DashBoardComponent = () => {
     
@@ -21,13 +22,14 @@ export const DashBoardComponent = () => {
 
     return (
         <div>
+            <ToastContainer />
             {Loading ? 
                 <div className='loading-container'>
                         <ThreeCircles
                             visible={true}
                             height="100"
                             width="100"
-                            color="rgb(83,178,225)"
+                            color="rgb(203, 133, 41)"
                             ariaLabel="three-circles-loading"
                             wrapperStyle={{}}
                             wrapperClass=""

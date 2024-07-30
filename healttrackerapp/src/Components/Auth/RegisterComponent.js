@@ -193,14 +193,14 @@ import api from '../../Services/Axios';
 					</div>
 
 					<div className='row role mt-4'>
-						<div className='col user-col' style={{backgroundColor: RegisterData.role == "User" ? "rgb(15,39,135)" : "", 
+						<div className='col user-col' style={{backgroundColor: RegisterData.role == "User" ? "rgb(203, 133, 41)" : "", 
 							borderColor: RegisterData.role ? "green" : "red",
 							color: RegisterData.role == "User" ? "white" : ""
 						 }} onClick={() => selectRole("User")}>
 							User
 						</div>
 
-						<div className='col coach-col' style={{backgroundColor: RegisterData.role == "Coach" ? "rgb(15,39,135)" : "",
+						<div className='col coach-col' style={{backgroundColor: RegisterData.role == "Coach" ? "rgb(203, 133, 41)" : "",
 							borderColor: RegisterData.role ? "green" : "red",
 							color: RegisterData.role == "Coach" ? "white" : ""
 						 }} onClick={() => selectRole("Coach")}>
@@ -209,7 +209,7 @@ import api from '../../Services/Axios';
 					</div>
 
 					<div className='form-row mt-2'>
-						<button className='btn btn-primary'>Register</button>
+						<button className='btn btn-light'>Register</button>
 					</div>
 				</form>
 			</div>

@@ -4,7 +4,7 @@ import api from '../../Services/Axios';
 import { icons } from '../../Data/IconData';
 import { colors } from '../../Data/ColorData';
 import '../../Styles/PrefStyles.css';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
   
 export const UserPreferencesComponent = () =>  {
 
@@ -14,9 +14,8 @@ export const UserPreferencesComponent = () =>  {
     const [SelectedMetrics, setSelectedMetrics] = useState([]);
 
     useEffect(() => {
-        checkIfAlreadySet();
         fetchAllMetrics();
-    }, []);
+    }, [Metrics]);
 
     const fetchAllMetrics = async () => {
         try {
@@ -51,20 +50,13 @@ export const UserPreferencesComponent = () =>  {
             if(localStorage.getItem("role") == "User")
                 Navigate('/DashBoard');
             else
-                Navigate('/AdminDashBoard');
+                Navigate('/CoachDashBoard');
         }
         catch (err) {
-            toast.error(err.response.data.errorMessage);
+            if(err.response.status == 409)
+                toast.error("Some of the preferences already exists");
+            else toast.error(err.response.data.errorMessage);
         }
-    }
-
-    const checkIfAlreadySet = () => {
-        var IsPreferenceSet = localStorage.getItem("IsPreferenceSet");
-        if(IsPreferenceSet == "true")
-            if(localStorage.getItem("role") == "User")
-                Navigate('/DashBoard');
-            else
-                Navigate('/AdminDashBoard');
     }
 
     const AddPref = (metric) => {
@@ -76,8 +68,9 @@ export const UserPreferencesComponent = () =>  {
 
 	return (
 	  <div className='pref-main-container'>
+        <ToastContainer />
         <div className="pref-container">
-            <h1 className="text-center mt-4 mb-4">CHOOSE WHAT YOU WANT TO MONITOR!</h1>
+            <h1 className="text-center pt-4 mb-4">CHOOSE WHAT YOU WANT TO MONITOR!</h1>
             <div className="row">
                 {Metrics.map((metric, index) => (
                     <div className="col-md-4">
@@ -91,7 +84,7 @@ export const UserPreferencesComponent = () =>  {
                 ))}
             </div>
             <div className="text-center pref-button-div mt-5">
-                <button className="btn btn-primary" onClick={SavePreferences}>Save Preferences</button>
+                <button className="btn btn-light" onClick={SavePreferences}>Save Preferences</button>
             </div>
             </div>
 	  </div>

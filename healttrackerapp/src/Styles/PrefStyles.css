@@ -18,10 +18,14 @@
 }
 
 .pref-button-div button{
-    background-color: rgb(15,39,135);
+    background-color: rgb(203, 133, 41);
     width: 30%;
     padding: 20px 0px;
     margin-bottom: 50px;
+}
+
+.pref-button-div button:hover{
+    background-color: rgb(223, 163, 83);
 }
 
 .pref-main-container{

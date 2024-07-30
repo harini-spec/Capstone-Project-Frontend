@@ -17,8 +17,8 @@ import { Navbar } from './Components/Navbar';
 function App() {
   return (
     <div className="App">
-      <Navbar />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomeComponent/>}/>
           <Route path="/DashBoard" element={<DashBoardComponent/>}/>
@@ -30,7 +30,8 @@ function App() {
           <Route path="/Login" element={<LoginComponent/>}/>
           <Route path="/Register" element={<RegisterComponent/>}/>
           <Route path="/UserPreferences" element={<UserPreferencesComponent />}/>
-          {/* /AdminDashBoard */}
+          {/* /CoachDashBoard */}
+          {/* /Suggestions */}
         </Routes>
       </BrowserRouter>
     </div>

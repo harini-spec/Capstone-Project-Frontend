@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: rgb(207,223,248);
+    background-color: rgb(255, 252, 248);
 }
 
 .auth-container {
@@ -60,7 +60,11 @@
     padding: 10px;
     font-size: 16px;
     margin-top: 20px;
-    background-color: rgb(15,39,135);
+    background-color: rgb(203, 133, 41);
+}
+
+.auth-container .btn:hover {
+    background-color: rgb(223, 163, 83);
 }
 
 .role .col{
@@ -78,7 +82,7 @@
 
 .role .col:hover{
     color: white;
-    background-color: rgb(13,110,253);
+    background-color: rgb(243, 190, 122);
     cursor: pointer;
 }
 

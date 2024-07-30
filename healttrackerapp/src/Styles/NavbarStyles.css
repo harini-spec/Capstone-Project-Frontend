@@ -1,0 +1,22 @@
+.nav-container a, .nav-container li{
+    padding: 0px 10px;
+    color: white !important;
+    text-decoration: none;
+}
+
+.navbar-brand{
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.nav-container{
+    background-color: rgb(203, 133, 41);
+}
+
+.nav-content{
+    text-align: right !important;
+}
+
+.auth-navs{
+    display: flex;
+}

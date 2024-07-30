@@ -27,11 +27,12 @@ import api from '../../Services/Axios';
 			localStorage.setItem("name", response.data.userName);
 			localStorage.setItem("role", response.data.role);
 			localStorage.setItem("IsPreferenceSet", response.data.isPreferenceSet);
-			if(response.data.IsPreferenceSet == true){
+
+			if(response.data.isPreferenceSet == true){
 				if(response.data.role == "User")
 					Navigate('/DashBoard');
 				else
-					Navigate('/AdminDashBoard');
+					Navigate('/CoachDashBoard');
 			}
 			else
 				Navigate('/UserPreferences');
@@ -98,7 +99,7 @@ import api from '../../Services/Axios';
 					</div>
 
 					<div className='form-row login-button mt-2'>
-						<button className='btn btn-primary'>Login</button>
+						<button className='btn btn-light'>Login</button>
 					</div>
 				</form>
 			</div>

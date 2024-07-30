@@ -5,6 +5,7 @@ import api from '../../Services/Axios';
 import { useUserPreference } from '../hooks/useUserPreference';
 import { ThreeCircles } from 'react-loader-spinner';
 import "../../Styles/ComponentStyles.css";
+import { ToastContainer } from 'react-toastify';
 
 const GraphComponent = (props) => {
     const [UserPreferences] = useUserPreference();
@@ -90,6 +91,7 @@ const GraphComponent = (props) => {
 
     return (
         <div className='graph-div'>
+            <ToastContainer />
             <div className='category-div'>
                 <h2 className='category-header'>Activity Growth</h2>
                 <div className='category'>
@@ -112,7 +114,6 @@ const GraphComponent = (props) => {
             </div>
 
             {(!Loading && !ErrorMsg) && (
-                (Category !== "Height" || Category !== "Weight")?
                 <CChart
                     type="line" 
                     data={{
@@ -120,53 +121,37 @@ const GraphComponent = (props) => {
                         datasets: [
                             {
                                 label: Category.replace("_", " "),
-                                backgroundColor: "rgba(151, 187, 205, 0.2)",
-                                borderColor: "rgb(83, 178, 225)",
-                                pointBackgroundColor: "rgb(83, 178, 225)",
+                                backgroundColor: "rgb(203, 133, 41)",
+                                borderColor: "rgb(203, 133, 41)",
+                                pointBackgroundColor: "rgb(203, 133, 41)",
                                 pointBorderColor: "#fff",
                                 pointRadius: 7,
                                 data: LogValue
                             },
-                            {
-                                label: "Min Requirement",
-                                backgroundColor: "rgba(161, 158, 158, 0.2)",
-                                borderColor: "rgba(220, 220, 220, 1)",
-                                pointBackgroundColor: "rgba(220, 220, 220, 1)",
-                                pointBorderColor: "#fff",
-                                pointRadius: 7,
-                                data: MinRequirement,
-                                fill: {
-                                    target: 2,
-                                    below: 'rgba(150, 150, 150, 0.2)'
+                            ...(Category !== "Height" && Category !== "Weight" ? [
+                                {
+                                    label: "Min Requirement",
+                                    backgroundColor: "rgba(161, 158, 158, 0.2)",
+                                    borderColor: "rgba(220, 220, 220, 1)",
+                                    pointBackgroundColor: "rgba(220, 220, 220, 1)",
+                                    pointBorderColor: "#fff",
+                                    pointRadius: 7,
+                                    data: MinRequirement,
+                                    fill: {
+                                        target: 2,
+                                        below: 'rgba(150, 150, 150, 0.2)'
+                                    }
+                                },
+                                {
+                                    label: "Max Requirement",
+                                    backgroundColor: "rgba(161, 158, 158, 0.2)",
+                                    borderColor: "rgba(220, 220, 220, 1)",
+                                    pointBackgroundColor: "rgba(220, 220, 220, 1)",
+                                    pointBorderColor: "#fff",
+                                    pointRadius: 7,
+                                    data: MaxRequirement,
                                 }
-                            },
-                            {
-                                label: "Max Requirement",
-                                backgroundColor: "rgba(161, 158, 158, 0.2)",
-                                borderColor: "rgba(220, 220, 220, 1)",
-                                pointBackgroundColor: "rgba(220, 220, 220, 1)",
-                                pointBorderColor: "#fff",
-                                pointRadius: 7,
-                                data: MaxRequirement,
-                            }
-                        ],
-                    }}
-                />
-                :
-                <CChart
-                    type="line" 
-                    data={{
-                        labels: Dates,
-                        datasets: [
-                            {
-                                label: Category.replace("_", " "),
-                                backgroundColor: "rgba(151, 187, 205, 0.2)",
-                                borderColor: "rgb(83, 178, 225)",
-                                pointBackgroundColor: "rgb(83, 178, 225)",
-                                pointBorderColor: "#fff",
-                                pointRadius: 7,
-                                data: LogValue
-                            }
+                            ] : [])
                         ],
                     }}
                 />
@@ -180,7 +165,7 @@ const GraphComponent = (props) => {
                     visible={true}
                     height="100"
                     width="100"
-                    color="rgb(83,178,225)"
+                    color="rgb(203, 133, 41)"
                     ariaLabel="three-circles-loading"
                     wrapperStyle={{}}
                     wrapperClass=""

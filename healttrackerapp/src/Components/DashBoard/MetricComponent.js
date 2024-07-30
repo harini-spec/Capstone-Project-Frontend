@@ -5,6 +5,7 @@ import '../../Styles/MetricComponentStyles.css';
 import { colors } from '../../Data/ColorData';
 import { icons } from '../../Data/IconData';
 import { useHealthLog } from '../hooks/useHealthLog';
+import { ToastContainer } from 'react-toastify';
   
 const MetricComponent = (props) =>  {
 
@@ -12,6 +13,7 @@ const MetricComponent = (props) =>  {
 
     return (
         <div className="MetricComponent" id={props.preference.preferenceId}>
+            <ToastContainer />
             <div className="header-row flex-row">
                 <p className="icon" style={{color: colors["color"+ props.index]}}>{icons[props.preference.metricType]}</p>
                 <p className="title">{props.preference.metricType.replace(/_/g, " ")}</p>
