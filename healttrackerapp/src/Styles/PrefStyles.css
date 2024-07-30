@@ -1,0 +1,15 @@
+.pref-card{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: auto;
+}
+
+.pref-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80% !important;
+}

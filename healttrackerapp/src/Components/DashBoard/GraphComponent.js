@@ -3,6 +3,8 @@ import { CChart } from '@coreui/react-chartjs';
 import '../../Styles/GraphStyles.css';
 import api from '../../Services/Axios';
 import { useUserPreference } from '../hooks/useUserPreference';
+import { ThreeCircles } from 'react-loader-spinner';
+import "../../Styles/ComponentStyles.css";
 
 const GraphComponent = (props) => {
     const [UserPreferences] = useUserPreference();
@@ -173,7 +175,17 @@ const GraphComponent = (props) => {
                 ErrorMsg &&
                 <div className='alert alert-danger'>{ErrorMsg}</div>
             }
-            {Loading && <p className="loading">Loading data...</p>}
+            {Loading && <div className='loading-container'>
+                    <ThreeCircles
+                    visible={true}
+                    height="100"
+                    width="100"
+                    color="rgb(83,178,225)"
+                    ariaLabel="three-circles-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    />
+                </div>}
         </div>
     );
 };

@@ -11,6 +11,7 @@ import { TargetFormComponent } from './Components/Target/TargetFormComponent';
 import { HomeComponent } from './Components/HomeComponent';
 import { LoginComponent } from './Components/Auth/LoginComponent';
 import { RegisterComponent } from './Components/Auth/RegisterComponent';
+import { UserPreferencesComponent } from './Components/Metric/UserPreferencesComponent';
 
 function App() {
   return (
@@ -27,8 +28,8 @@ function App() {
           <Route path="/UpdateTarget/:PrefId/:TargetId" element={<TargetFormComponent isUpdateMode={true}/>}/>
           <Route path="/Login" element={<LoginComponent/>}/>
           <Route path="/Register" element={<RegisterComponent/>}/>
-          {/* /UserPreferences
-          /Login */}
+          <Route path="/UserPreferences" element={<UserPreferencesComponent />}/>
+          {/* /AdminDashBoard */}
         </Routes>
       </BrowserRouter>
     </div>

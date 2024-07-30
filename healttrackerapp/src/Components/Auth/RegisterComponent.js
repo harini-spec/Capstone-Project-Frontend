@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../Styles/RegisterStyles.css';
+import '../../Styles/AuthStyles.css';
 import Tracker from '../../Assets/Register.jpg';
 import '../../Styles/ErrorStyles.css';
 import { toast, ToastContainer } from 'react-toastify';
@@ -23,18 +23,18 @@ import api from '../../Services/Axios';
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
-		if(ErrorData.name || ErrorData.age || ErrorData.phone || ErrorData.email || ErrorData.password || ErrorData.confirm_password || ErrorData.height || ErrorData.weight || !RegisterData.role) {
+		if(ErrorData.name || ErrorData.age || ErrorData.phone || ErrorData.email || ErrorData.password || ErrorData.confirm_password) {
+			toast.error("Invalid Data");
+			return;
+		}
+
+		if(!RegisterData.name || !RegisterData.age || !RegisterData.phone || !RegisterData.email || !RegisterData.password || !RegisterData.confirm_password || !RegisterData.role) {
 			toast.error("Invalid Data");
 			return;
 		}
 
 		try {
-			const yourConfig = {
-				headers: {
-					Authorization: "Bearer " + localStorage.getItem("token")
-				}
-			};
-			await api.post(`http://localhost:5273/api/User/RegisterUser`, RegisterData, yourConfig);
+			await api.post(`http://localhost:5273/api/User/RegisterUser`, RegisterData);
 
 			toast.success("Registration successful");
 			setTimeout(() => {
@@ -121,14 +121,14 @@ import api from '../../Services/Axios';
     };
 
 	return (
-	  <div className='register-main-container'>
+	  <div className='auth-main-container'>
 		<ToastContainer />
-		<div className="register-container">
-			<div className='register-image-container'>
+		<div className="auth-container">
+			<div className='auth-image-container'>
 				<img src={Tracker}></img>
 			</div>
 
-			<div className="register-form-container">
+			<div className="auth-form-container">
 				<h3 className='text-center'>HOLA! AMIGO</h3>
 				<h5 className='text-center'>Let's get started</h5>
 				<form onSubmit={(e) => onSubmit(e)}>
