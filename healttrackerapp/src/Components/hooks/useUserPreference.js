@@ -2,39 +2,38 @@ import { useState, useEffect } from 'react';
 import api from "../../Services/Axios";
 import { toast } from 'react-toastify';
 
-export const useUserPreference = () => {
+export const useUserPreference = (UserId) => {
     const [UserPreferences, setUserPreferences] = useState([]);
-
+    
     useEffect(() => {
         const getUserPreferences = async () => {
-            try{
+            try {
                 const yourConfig = {
                     headers: {
-                       Authorization: "Bearer " + localStorage.getItem("token")
+                        Authorization: "Bearer " + localStorage.getItem("token")
                     }
-                }
-                const response = await api.get(`Metric/GetPreferenceListOfUser`, yourConfig);
+                };
+                const response = await api.get(`Metric/GetPreferenceListOfUser?UserId=${UserId}`, yourConfig);
                 setUserPreferences(response.data);
-            }
-            catch(err){
-                if(err.response.status === 401){
+            } catch (err) {
+                if (err.response.status === 401) {
                     toast.error("Session Expired! Please Login Again");
                     localStorage.clear();
                     window.location.href = "/Login";
-                }
-                else if(err.response.status === 403){
+                } else if (err.response.status === 403) {
                     toast.error("You are not authorized to view this page");
                     window.location.href = "/Login";
-                }
-                else if(err.response.status === 404){
+                } else if (err.response.status === 404) {
                     toast.error("User Preferences Not Found");
                     window.location.href = "/UserPreferences";
                 }
             }
         }
 
-        getUserPreferences();
-    }, []);
+        if (UserId) {
+            getUserPreferences();
+        }
+    }, [UserId]);
 
     return [UserPreferences, setUserPreferences];
 };

@@ -1,0 +1,75 @@
+.coach-dashboard-container{
+    min-height: 100vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.problems-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.problems-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    max-width: 450px;
+    min-height: 200px;
+    margin: 10px;
+    background-color: white;
+}
+
+.problems-container .btn{
+    background-color: rgb(203,133,41);
+}
+
+.user-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-row h6{
+    margin: 2px;
+}
+
+.problems-card-body{
+    margin-bottom: 30px;
+}
+
+.problems{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.problems-row{
+    width: max-content;
+    color: white;
+    padding: 3px 10px;
+    margin: 5px auto;
+    border-radius: 15px;
+    background-color: rgb(203,133,41);
+}
+
+.problems-card-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width:500) {
+    .problems-card{
+        min-width: 100%; 
+        max-width: 100%; 
+        padding: 10px; 
+    }
+}

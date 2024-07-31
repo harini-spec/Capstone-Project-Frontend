@@ -35,8 +35,6 @@ export const UserPreferencesComponent = () =>  {
     }
 
     const SavePreferences = async () => {
-        console.log(SelectedMetrics);
-
         try {
             const yourConfig = {
                 headers: {

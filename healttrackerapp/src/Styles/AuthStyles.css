@@ -1,18 +1,16 @@
 .auth-main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgb(255, 252, 248);
+    min-height: 100vh;
+    height: auto;
+    background-color: rgb(255, 252, 248) !important;
 }
 
 .auth-container {
+    margin: 50px auto 0px auto;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
     width: 80%;
     max-width: 1000px;
-    background: white;
     box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
 }
 
@@ -115,7 +113,7 @@
     }
 
     .auth-container {
-        margin: 5% 0px;
+        margin: 5% auto;
         flex-direction: column;
     }
   

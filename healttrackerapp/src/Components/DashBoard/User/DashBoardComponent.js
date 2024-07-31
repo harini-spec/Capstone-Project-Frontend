@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import '../../Styles/DashBoardStyles.css';
 import MetricComponent from './MetricComponent';
 import GraphComponent from './GraphComponent';
-import { useUserPreference } from '../hooks/useUserPreference';
-import { MonthNamesData } from '../../Data/MonthNamesData';
-import { ThreeCircles } from 'react-loader-spinner'
-import "../../Styles/ComponentStyles.css";
+import { useUserPreference } from '../../hooks/useUserPreference';
+import { MonthNamesData } from '../../../Data/MonthNamesData';
+import { useAuthService } from '../../../Services/useAuthService';
+import "../../../Styles/ComponentStyles.css";
+import '../../../Styles/DashBoardStyles.css';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useAuthService } from '../../Services/useAuthService';
+import { ThreeCircles } from 'react-loader-spinner'
 
 export const DashBoardComponent = () => {
 
     const navigate = useNavigate();
     
-    const [UserPreferences, setUserPreferences] = useUserPreference();
+    const [UserPreferences, setUserPreferences] = useUserPreference(localStorage.getItem("userID"));
     const [Loading, setLoading] = useState(true);
     const [Role, IsExpired] = useAuthService();
 

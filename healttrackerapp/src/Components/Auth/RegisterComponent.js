@@ -46,8 +46,6 @@ import api from '../../Services/Axios';
 			else
 				toast.error("Registration failed");
 		}
-
-		console.log(RegisterData);
 	}	
 
 	const validateData = (e) => {
@@ -63,7 +61,6 @@ import api from '../../Services/Axios';
 
 		if(e.target.name == "age"){
 			if(e.target.value < 18) {
-				console.log("Age must be atleast 18");
 				setErrorData({...ErrorData, [e.target.name]: "Age must be atleast 18"});
 				return false;
 			}
@@ -89,13 +86,10 @@ import api from '../../Services/Axios';
 		}
 
 		if(e.target.name == "password"){
-			console.log("Password Validation");
-			console.log(e.target.value);
 
 			const re_pwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 			if(!re_pwd.test(e.target.value)) {
 				setErrorData({...ErrorData, [e.target.name]: "Must be atleast 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character"});
-				console.log("Password Validation Failed");
 				return false;
 			}
 			return true;

@@ -125,7 +125,7 @@ export const GetAllTargetsComponent = () =>  {
                                     <div className='target-row-header'>Status</div>
                                     <div className="target-status-div">
                                         <p style={{backgroundColor: target.targetStatus === "Achieved" ? "rgb(77, 188, 99)" : "rgb(179, 188, 77)"}}>
-                                            {target.targetStatus.replace("_", " ")}
+                                            {target.targetStatus.replace(/_/g, " ")}
                                         </p>
                                     </div>
                                 </div>

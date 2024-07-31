@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { CChart } from '@coreui/react-chartjs';
-import '../../Styles/GraphStyles.css';
-import api from '../../Services/Axios';
-import { useUserPreference } from '../hooks/useUserPreference';
+import '../../../Styles/GraphStyles.css';
+import api from '../../../Services/Axios';
+import { useUserPreference } from '../../hooks/useUserPreference';
+import "../../../Styles/ComponentStyles.css";
 import { ThreeCircles } from 'react-loader-spinner';
-import "../../Styles/ComponentStyles.css";
+import { CChart } from '@coreui/react-chartjs';
 import { ToastContainer } from 'react-toastify';
 
 const GraphComponent = (props) => {
-    const [UserPreferences] = useUserPreference();
+    
+    const [UserPreferences] = useUserPreference(props.UserId);
     const [Category, setCategory] = useState("Sleep_Hours");
     const [Duration, setDuration] = useState("Overall");
     const [ErrorMsg, setErrorMsg] = useState("");
@@ -98,7 +99,7 @@ const GraphComponent = (props) => {
                     <select value={Category} onChange={handleCategoryChange} id="category">
                         {UserPreferences.map(preference => (
                             <option key={preference.preferenceId} value={preference.metricType}>
-                                {preference.metricType.replace("_", " ")}
+                                {preference.metricType.replace(/_/g, " ")}
                             </option>
                         ))}
                     </select>
@@ -120,7 +121,7 @@ const GraphComponent = (props) => {
                         labels: Dates,
                         datasets: [
                             {
-                                label: Category.replace("_", " "),
+                                label: Category.replace(/_/g, " "),
                                 backgroundColor: "rgb(203, 133, 41)",
                                 borderColor: "rgb(203, 133, 41)",
                                 pointBackgroundColor: "rgb(203, 133, 41)",

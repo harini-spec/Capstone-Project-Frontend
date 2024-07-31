@@ -44,7 +44,6 @@ import api from '../../Services/Axios';
 				toast.error("Login failed");
 		}
 
-		console.log(LoginData);
 	}	
 
 	const validateData = (e) => {

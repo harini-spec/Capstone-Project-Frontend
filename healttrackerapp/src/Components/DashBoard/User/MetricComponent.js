@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../Services/Axios';
-import '../../Styles/MetricComponentStyles.css';
-import { colors } from '../../Data/ColorData';
-import { icons } from '../../Data/IconData';
-import { useHealthLog } from '../hooks/useHealthLog';
+import '../../../Styles/MetricComponentStyles.css';
+import { colors } from '../../../Data/ColorData';
+import { icons } from '../../../Data/IconData';
+import { useHealthLog } from '../../hooks/useHealthLog';
 import { ToastContainer } from 'react-toastify';
   
 const MetricComponent = (props) =>  {

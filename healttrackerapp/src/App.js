@@ -4,7 +4,7 @@ import './Styles/MainStyles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'react-toastify/dist/ReactToastify.css';
-import { DashBoardComponent } from './Components/DashBoard/DashBoardComponent';
+import { DashBoardComponent } from './Components/DashBoard/User/DashBoardComponent';
 import { HealthLogComponent } from './Components/HealthLog/HealthLogComponent';
 import { GetAllTargetsComponent } from './Components/Target/GetAllTargetsComponent';
 import { TargetFormComponent } from './Components/Target/TargetFormComponent';
@@ -15,6 +15,7 @@ import { UserPreferencesComponent } from './Components/Metric/UserPreferencesCom
 import { Navbar } from './Components/Navbar';
 import GetAllUserSuggestions from './Components/Suggestion/GetAllUserSuggestions';
 import { ErrorPageComponent } from './Components/Error/ErrorPageComponent';
+import { CoachDashBoard } from './Components/DashBoard/Coach/CoachDashBoard';
 
 function App() {
   return (
@@ -34,8 +35,8 @@ function App() {
           <Route path="/AddTarget/:PrefId" element={<TargetFormComponent isUpdateMode={false}/>}/>
           <Route path="/UpdateTarget/:PrefId/:TargetId" element={<TargetFormComponent isUpdateMode={true}/>}/>
           <Route path="/UserSuggestions" element={<GetAllUserSuggestions/>}/>
-          
-          {/* /CoachDashBoard */}
+          <Route path="/CoachDashBoard" element={<CoachDashBoard/>}/>
+          <Route path="/GetUserGraph/:UserId" element={<UserDataComponentForCoach/>} />
         </Routes>
       </BrowserRouter>
     </div>

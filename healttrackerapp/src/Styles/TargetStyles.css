@@ -1,10 +1,11 @@
 .target-container {
-    margin: auto;
+    padding-top: 30px !important;
     width: 90% !important;
     min-width: 650px;
 }
 
 .target-main-container {
+    min-height: 100vh;
     height: auto;
     width: 100%;
     display: flex;

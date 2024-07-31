@@ -39,7 +39,6 @@ export const HealthLogComponent = (props) => {
                 navigate('/Login');
                 return;
             }
-            console.log("Role: " + Role);
         };
 
         checkAuthentication();

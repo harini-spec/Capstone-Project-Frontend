@@ -30,5 +30,6 @@
 
 .pref-main-container{
     background-color: rgb(255, 252, 248) !important;
+    min-height: 100vh;
     height: auto !important;
 }
