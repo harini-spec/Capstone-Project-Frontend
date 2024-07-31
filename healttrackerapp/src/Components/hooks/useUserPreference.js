@@ -25,7 +25,6 @@ export const useUserPreference = (UserId) => {
                     window.location.href = "/Login";
                 } else if (err.response.status === 404) {
                     toast.error("User Preferences Not Found");
-                    window.location.href = "/UserPreferences";
                 }
             }
         }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
 import { useAuthService } from '../../../Services/useAuthService';
 import api from '../../../Services/Axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -47,10 +47,11 @@ export const CoachDashBoard = () =>  {
             };
             const response = await api.get(`Problem/GetProblems`, yourConfig);
             console.log(response.data);
+
             setProblemData(response.data);
         } catch (err) {
-            if(err.response.status === 404 && err.response.data === "No Problems Logs for today!") {
-                setErrorData("No Problems Logs for today!");
+            if(err.response.status === 404 && err.response.data === "No Problem Logs for today!") {
+                setErrorData("No Problem Logs for today!");
             }
             else{
                 toast.error("An error occurred while fetching data!");
@@ -62,7 +63,7 @@ export const CoachDashBoard = () =>  {
 	return (
 	  <div className='coach-dashboard-container'>
         <ToastContainer />
-        <h1 className='text-center pt-4'>COACH DASHBOARD</h1>
+        <h1 className='text-center pt-4 pb-4'>COACH DASHBOARD</h1>
         {isLoading && <div className='loading-container'>
                     <ThreeCircles
                     visible={true}
@@ -75,7 +76,7 @@ export const CoachDashBoard = () =>  {
                     />
         </div>}
 
-        {(ErrorData === "No Problems Logs for today!" || ProblemData.length == 0) && !isLoading ? <div className='alert alert-success mt-4'>No Problems Logs for today!</div>:
+        {(ErrorData === "No Problem Logs for today!" || ProblemData.length == 0) && !isLoading ? <div className='alert alert-success mt-4'>No Problem Logs for today!</div>:
             <div className='problems-container'>
                 {
                     ProblemData.map((problem, index) => (

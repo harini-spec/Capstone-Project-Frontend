@@ -16,6 +16,7 @@ import { Navbar } from './Components/Navbar';
 import GetAllUserSuggestions from './Components/Suggestion/GetAllUserSuggestions';
 import { ErrorPageComponent } from './Components/Error/ErrorPageComponent';
 import { CoachDashBoard } from './Components/DashBoard/Coach/CoachDashBoard';
+import { UserDataComponentForCoach } from './Components/DashBoard/Coach/UserDataComponentForCoach';
 
 function App() {
   return (
