@@ -14,7 +14,7 @@ export const useGraphData = (category, duration) => {
                         Authorization: "Bearer " + localStorage.getItem("token")
                     }
                 };
-                const response = await api.get(`http://localhost:5273/api/Graph/GetGraphData?MetricType=${category}&Duration=${duration}&UserId=${localStorage.getItem("userID")}`, yourConfig);
+                const response = await api.get(`Graph/GetGraphData?MetricType=${category}&Duration=${duration}&UserId=${localStorage.getItem("userID")}`, yourConfig);
                 setGraphData(await response.data);
             } catch (err) {
                 console.log(err);

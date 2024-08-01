@@ -9,10 +9,19 @@ import '../../../Styles/DashBoardStyles.css';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { ThreeCircles } from 'react-loader-spinner'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import GoogleFitComponent from '../../OAuth/GoogleFitComponent';
+import GoogleFitData from '../../OAuth/GoogleFitData';
 
 export const DashBoardComponent = () => {
 
     const navigate = useNavigate();
+    const [token, setToken] = useState(null);
+
+    const handleOAuthLoginSuccess = (access_token) => {
+      setToken(access_token);
+      console.log("Yolo:", access_token);
+    };  
     
     const [UserPreferences, setUserPreferences] = useUserPreference(localStorage.getItem("userID"));
     const [Loading, setLoading] = useState(true);
@@ -62,7 +71,15 @@ export const DashBoardComponent = () => {
             <div className='dashboard-main-container'>
                 <div className='overview-header'>
                     <h2>Health Overview</h2>
-                    <p className='date-para'>{MonthNamesData[new Date().getMonth()]} {new Date().getDate()}, {new Date().getFullYear()}</p>
+                    <div className='overview-header-line'>
+                        <p className='date-para'>{MonthNamesData[new Date().getMonth()]} {new Date().getDate()}, {new Date().getFullYear()}</p>
+                        <div className='google-fit-container'>
+                            <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+                                <GoogleFitComponent handleLoginSuccess={handleOAuthLoginSuccess} />
+                                {token && <GoogleFitData token={token} />}
+                            </GoogleOAuthProvider>
+                        </div>
+                    </div>
                 </div>
                 <div className="MetricDiv">
                     {

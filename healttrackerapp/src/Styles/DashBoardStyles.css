@@ -4,10 +4,18 @@
     justify-content:space-evenly;
 }
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 700px){
     .MetricDiv{
         flex: 100%;
         justify-content: center;
+    }
+
+    .overview-header-line{
+        flex-direction: column;
+    }
+
+    .google-fit-container{
+        margin-top: 20px;
     }
 }
 
@@ -18,4 +26,20 @@
 .date-para{
     color: rgb(106, 105, 105);
     font-size: 1.2em;
+}
+
+.overview-header-line{
+    display: flex;
+    justify-content: space-between;
+}
+
+.google-fit-container{
+    margin-right: 100px;
+}
+
+.google-fit-container button{
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(203,133,41);
+    padding: 2%;
 }

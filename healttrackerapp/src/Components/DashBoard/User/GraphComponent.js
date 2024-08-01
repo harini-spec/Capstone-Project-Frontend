@@ -38,7 +38,7 @@ const GraphComponent = (props) => {
                 setErrorMsg("");
 
                 // Fetch Graph Data
-                const response = await api.get(`http://localhost:5273/api/Graph/GetGraphData?MetricType=${Category}&Duration=${Duration}&UserId=${props.UserId}`, yourConfig);
+                const response = await api.get(`Graph/GetGraphData?MetricType=${Category}&Duration=${Duration}&UserId=${props.UserId}`, yourConfig);
 
                 // Process Graph Data
                 const dates = [];
@@ -58,7 +58,7 @@ const GraphComponent = (props) => {
                     setMaxRequirement([]);
                     return;
                 }
-                const minMaxResponse = await api.get(`http://localhost:5273/api/Graph/GetGraphDataRange?MetricType=${Category}`, yourConfig);
+                const minMaxResponse = await api.get(`Graph/GetGraphDataRange?MetricType=${Category}`, yourConfig);
                 const minRequirement = [];
                 const maxRequirement = [];
                 if (Array.isArray(response.data) && response.data.length > 0) {

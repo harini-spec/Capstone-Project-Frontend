@@ -34,7 +34,7 @@ import api from '../../Services/Axios';
 		}
 
 		try {
-			await api.post(`http://localhost:5273/api/User/RegisterUser`, RegisterData);
+			await api.post(`User/RegisterUser`, RegisterData);
 
 			toast.success("Registration successful");
 			setTimeout(() => {

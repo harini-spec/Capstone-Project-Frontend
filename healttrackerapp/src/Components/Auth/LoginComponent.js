@@ -21,7 +21,7 @@ import api from '../../Services/Axios';
 		}
 
 		try {
-			var response = await api.post(`http://localhost:5273/api/User/LoginUser`, LoginData);
+			var response = await api.post(`/User/LoginUser`, LoginData);
 			localStorage.setItem("token", response.data.token);
 			localStorage.setItem("userID", response.data.userID);
 			localStorage.setItem("name", response.data.userName);
