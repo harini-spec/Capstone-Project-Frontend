@@ -21,7 +21,7 @@ export const HealthLogComponent = (props) => {
     const [Color, setColor] = useColor();
     const [Metric] = useMetric(PrefId);
     const [ErrorMsg, setErrorMsg] = useState("");
-    const [Log, setLog] = useHealthLog(PrefId, props.isUpdateMode);
+    const [Log, setLog] = useHealthLog(PrefId, props.isUpdateMode, false);
 
     useEffect(() => {
         const checkAuthentication = () => {

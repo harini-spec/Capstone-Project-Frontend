@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../Services/Axios';
 
-const GoogleFitData = ({ token }) => {
+const GoogleFitData = ({ token, setIsDataLogged }) => {
   const [data, setData] = useState({
     steps: null,
     caloriesExpended: null,
-    calorieIntake: null,
-    weight: null,
-    height: null,
-    sleep: null,
+    sleep: null
   });
 
   useEffect(() => {
-    addAccessTokenToDB(token);
+    if (!token) return; // Exit if token is not available
+
     console.log("Access Token:", token);
 
     const fetchTodayData = async () => {
@@ -31,10 +29,7 @@ const GoogleFitData = ({ token }) => {
             aggregateBy: [
               { dataTypeName: 'com.google.step_count.delta' },
               { dataTypeName: 'com.google.calories.expended' },
-              { dataTypeName: 'com.google.nutrition' },
               { dataTypeName: 'com.google.sleep.segment' },
-              { dataTypeName: 'com.google.weight' },
-              { dataTypeName: 'com.google.height' },
             ],
             bucketByTime: { durationMillis: 86400000 }, // Bucket by day
             startTimeMillis: new Date(startTime).getTime(),
@@ -42,9 +37,7 @@ const GoogleFitData = ({ token }) => {
           }),
         });
 
-        // console.log("Start Time:", new Date(startTime).getTime(), "End Time:", new Date(endTime).getTime());
         const result = await response.json();
-        // console.log("Today's data:", result);
 
         const aggregateData = (dataTypeName, isMapVal = false, mapKey = '') => {
           const relevantDataSet = result.bucket.flatMap(bucket => 
@@ -56,9 +49,6 @@ const GoogleFitData = ({ token }) => {
               if (isMapVal) {
                 return pointAcc + (point.value[0].mapVal.find(val => val.key === mapKey)?.value.fpVal || 0);
               }
-              if (dataTypeName === 'com.google.height' || dataTypeName === 'com.google.weight') {
-                return pointAcc + point.value.slice(-1)[0]?.fpVal || 0;
-              }
               return pointAcc + point.value.reduce((valueAcc, value) => {
                 return valueAcc + (value.fpVal || value.intVal || 0);
               }, 0);
@@ -67,14 +57,9 @@ const GoogleFitData = ({ token }) => {
           }, 0);
         };
 
-
-        // console.log("Steps:", aggregateData('com.google.step_count.delta'));
         setData({
           steps: aggregateData('com.google.step_count.delta'),
           caloriesExpended: aggregateData('com.google.calories.expended'),
-          calorieIntake: aggregateData('com.google.nutrition', true, 'calories'),
-          weight: aggregateData('com.google.weight'),
-          height: aggregateData('com.google.height'),
           sleep: aggregateData('com.google.sleep.segment'),
         });
 
@@ -83,43 +68,38 @@ const GoogleFitData = ({ token }) => {
       }
     };
 
-    if (token) {
-      fetchTodayData();
-    }
+    fetchTodayData();
   }, [token]);
 
-    const addAccessTokenToDB = async (token) => {
-        try {
-            const yourConfig = {
-                headers: {
-                    Authorization: "Bearer " + localStorage.getItem("token")
-                }
-            };
-            const response = await api.post(`OAuth/AddOrUpdateOAuthAccessToken`, {accessToken: token}, yourConfig);
-            if(response.status === 200) {
-                console.log("Access Token added to DB successfully");
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    };
+  useEffect(() => {
+    if (data.steps !== null && data.caloriesExpended !== null && data.sleep !== null) {
+      addLogToDB(data);
+    }
+  }, [data]);
 
-  return (
-    <div>
-      {data.steps !== null ? (
-        <div>
-          <p>Today's Step Count: {data.steps}</p>
-          <p>Today's Calories Expended: {data.caloriesExpended} kcal</p>
-          <p>Today's Calorie Intake: {data.calorieIntake} kcal</p>
-          <p>Today's Weight: {data.weight} kg</p>
-          <p>Today's Height: {data.height} m</p>
-          <p>Today's Sleep: {data.sleep} hours</p>
-        </div>
-      ) : (
-        <p>Loading today's data...</p>
-      )}
-    </div>
-  );
+  const addLogToDB = async () => {
+    try {
+      const yourConfig = {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      };
+      var logData = [
+        { metricType: "Steps_Count", value: data.steps },
+        { metricType: "Calories_Burned", value: data.caloriesExpended },
+        { metricType: "Sleep_Hours", value: data.sleep }
+      ];
+      const response = await api.post(`HealthLog/AddHealthLogDataFromGoogleFit`, logData, yourConfig);
+      if (response.status === 200) {
+        console.log("Log added to DB successfully");
+        setIsDataLogged(true); // Update state to indicate data has been logged
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return null; // Or some loading indicator if needed
 };
 
 export default GoogleFitData;

@@ -8,7 +8,11 @@ import { ToastContainer } from 'react-toastify';
   
 const MetricComponent = (props) =>  {
 
-    const [HealthLog, setHealthLog] = useHealthLog(props.preference.preferenceId, true);
+    useEffect(() => {
+        console.log("Is Data Logged:", props.isDataLogged);
+    }, [props.isDataLogged]);
+
+    const [HealthLog, setHealthLog] = useHealthLog(props.preference.preferenceId, true, props.isDataLogged);
 
     return (
         <div className="MetricComponent" id={props.preference.preferenceId}>
@@ -65,11 +69,16 @@ const MetricComponent = (props) =>  {
                                     </Link>
                                 </button>
                             :
-                                <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>
-                                    <Link className='link' to={`/UpdateHealthLog/${props.preference.preferenceId}/${HealthLog.id}`}>
-                                        Update
-                                    </Link>
-                                </button>
+                                props.isDataLogged? 
+                                    <button className="btn" style={{backgroundColor: colors["color" + props.index], cursor: 'not-allowed' }} onClick={() => {}}>
+                                        Update 
+                                    </button>
+                                    :   
+                                    <button className="btn" style={{backgroundColor: colors["color" + props.index]}}>
+                                        <Link className='link' to={`/UpdateHealthLog/${props.preference.preferenceId}/${HealthLog.id}`}>
+                                            Update
+                                        </Link>
+                                    </button>
                         }
                     </div>
                     <div className='col'>

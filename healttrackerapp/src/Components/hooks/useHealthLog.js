@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../../Services/Axios.js';
 import { toast } from 'react-toastify';
 
-export const useHealthLog = (PrefId, isUpdateMode) => {
+export const useHealthLog = (PrefId, isUpdateMode, isDataLogged) => {
     const [Log, setLog] = useState({});
 
     useEffect(() => {
@@ -44,7 +44,7 @@ export const useHealthLog = (PrefId, isUpdateMode) => {
         };
 
         fetchHealthLogData();
-    }, [PrefId]);
+    }, [PrefId, isDataLogged]);
 
     return [Log, setLog];
 };

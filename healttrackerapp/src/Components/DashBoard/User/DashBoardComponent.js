@@ -12,20 +12,41 @@ import { ThreeCircles } from 'react-loader-spinner'
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleFitComponent from '../../OAuth/GoogleFitComponent';
 import GoogleFitData from '../../OAuth/GoogleFitData';
+import api from '../../../Services/Axios';
 
 export const DashBoardComponent = () => {
 
     const navigate = useNavigate();
+    const [isDataLogged, setIsDataLogged] = useState(false);
     const [token, setToken] = useState(null);
+
+    const addAccessTokenToDB = async (token) => {
+        try {
+            const yourConfig = {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            };
+            const response = await api.post(`OAuth/AddOrUpdateOAuthAccessToken`, {accessToken: token}, yourConfig);
+            if(response.status === 200) {
+                console.log("Access Token added to DB successfully");
+                setIsTokenPresent(true);
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const handleOAuthLoginSuccess = (access_token) => {
       setToken(access_token);
+      addAccessTokenToDB(access_token);
       console.log("Yolo:", access_token);
     };  
     
     const [UserPreferences, setUserPreferences] = useUserPreference(localStorage.getItem("userID"));
     const [Loading, setLoading] = useState(true);
     const [Role, IsExpired] = useAuthService();
+    const [IsTokenPresent, setIsTokenPresent] = useState(false);
 
     useEffect(() => {
         const checkAuthentication = () => {
@@ -44,13 +65,32 @@ export const DashBoardComponent = () => {
                 return;
             }
 
+            checkIfAccessTokenExistsAndAddGFitDataToDB();
             setTimeout(() => {
                 setLoading(false);
             }, 2000);
         };
 
         checkAuthentication();
-    }, [IsExpired, Role, navigate]);
+    }, [IsExpired, Role]);
+
+    const checkIfAccessTokenExistsAndAddGFitDataToDB = async () => {
+        try {
+            const yourConfig = {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            };
+            const response = await api.get(`OAuth/GetValidOAuthAccessToken`, yourConfig);
+            if(response.status === 200) {
+                setIsTokenPresent(true);
+                setToken(response.data.accessToken);
+            }
+        }
+        catch (err) {
+            setIsTokenPresent(false);
+        }
+    }
 
     return (
         <div>
@@ -75,8 +115,8 @@ export const DashBoardComponent = () => {
                         <p className='date-para'>{MonthNamesData[new Date().getMonth()]} {new Date().getDate()}, {new Date().getFullYear()}</p>
                         <div className='google-fit-container'>
                             <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-                                <GoogleFitComponent handleLoginSuccess={handleOAuthLoginSuccess} />
-                                {token && <GoogleFitData token={token} />}
+                                {!IsTokenPresent && <GoogleFitComponent handleLoginSuccess={handleOAuthLoginSuccess} />}
+                                {token && <GoogleFitData token={token} setIsDataLogged={setIsDataLogged} />}
                             </GoogleOAuthProvider>
                         </div>
                     </div>
@@ -85,7 +125,7 @@ export const DashBoardComponent = () => {
                     {
                         UserPreferences.map((preference, key) => {
                             return(
-                                <MetricComponent key={preference.id} preference={preference} index={key}/>
+                                <MetricComponent key={preference.id} preference={preference} index={key} isDataLogged={isDataLogged}/>
                             )
                     })
                     }

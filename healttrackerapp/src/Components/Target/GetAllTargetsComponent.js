@@ -12,7 +12,7 @@ export const GetAllTargetsComponent = () =>  {
     const { PrefId } = useParams();
     const navigate = useNavigate();
 
-    const [HealthLog, setHealthLog] = useHealthLog(PrefId, true);
+    const [HealthLog, setHealthLog] = useHealthLog(PrefId, true, false);
     const [Role, IsExpired] = useAuthService();
     const [Targets, setTargets] = useState([]);
     const [ErrorMsg, setErrorMsg] = useState("");
