@@ -84,6 +84,7 @@ export const DashBoardComponent = () => {
             const response = await api.get(`OAuth/GetValidOAuthAccessToken`, yourConfig);
             if(response.status === 200) {
                 setIsTokenPresent(true);
+                console.log("true");
                 setToken(response.data.accessToken);
             }
         }

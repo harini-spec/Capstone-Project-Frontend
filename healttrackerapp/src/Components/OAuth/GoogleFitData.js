@@ -89,6 +89,7 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
         { metricType: "Calories_Burned", value: data.caloriesExpended },
         { metricType: "Sleep_Hours", value: data.sleep }
       ];
+
       const response = await api.post(`HealthLog/AddHealthLogDataFromGoogleFit`, logData, yourConfig);
       if (response.status === 200) {
         console.log("Log added to DB successfully");

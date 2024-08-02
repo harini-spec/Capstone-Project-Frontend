@@ -15,8 +15,7 @@
 .suggestion-list-items{
     font-size: 1.3rem;
     border-radius: 10px;
-    padding: 1%;
-    margin: 2%;
+    margin: 0px 2%;
     border-radius: 10px;
     display: flex;
 }
