@@ -22,13 +22,11 @@ export const CoachDashBoard = () =>  {
                 navigate('/Login');
                 return;
             }
-
-            if (Role === "User" || Role === "Admin") {
+            else if (localStorage.getItem("Role") === "User" || localStorage.getItem("Role") === "Admin") {
                 navigate('/Login');
                 return;
             }
-    
-            if (localStorage.getItem("IsPreferenceSet") === "false") {
+            else if (localStorage.getItem("IsPreferenceSet") === "false") {
                 navigate('/UserPreferences');
                 return;
             }

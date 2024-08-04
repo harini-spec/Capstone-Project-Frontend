@@ -1,17 +1,34 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import "../../../Styles/AdminDashboardStyles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import api from '../../../Services/Axios';
+import { useAuthService } from '../../../Services/useAuthService';
 
 const AdminDashboard = () =>  {
+
+  const navigate = useNavigate();
   const [InactiveCoaches, setInactiveCoaches] = useState([]);
   const [fullscreenImage, setFullscreenImage] = useState(null);
+  const [Role, IsExpired] = useAuthService();
 
   useEffect(() => {
-    GetAllInactiveCoaches();
-  }, []);
+      const checkAuthentication = () => {
+        setTimeout(() => {
+          console.log(Role);
+          console.log(IsExpired);
+        }, 2000);
+
+          if (!localStorage.getItem("token") || IsExpired || Role === "User" || Role === "Coach") {
+              navigate('/Login');
+              return;
+          }
+          GetAllInactiveCoaches();
+      };
+      checkAuthentication();
+  }, [IsExpired, Role, navigate]);
 
   const GetAllInactiveCoaches = async () => {
     const yourConfig = {

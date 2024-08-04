@@ -14,9 +14,9 @@ export const UserPreferencesComponent = () =>  {
     const [SelectedMetrics, setSelectedMetrics] = useState([]);
 
     useEffect(() => {
-        if(localStorage.getItem("Role") == "Admin")
+        if(localStorage.getItem("Role") !== "User" || localStorage.getItem("Role") !== "Coach")
             Navigate('/AdminDashBoard');
-        if(!localStorage.getItem("token"))
+        else if(!localStorage.getItem("token"))
             Navigate('/Login');
         fetchAllMetrics();
     }, [Metrics]);

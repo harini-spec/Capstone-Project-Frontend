@@ -32,7 +32,7 @@ export const Navbar = () => {
 
     return (
         <div className='nav-container'>
-            <nav className="navbar navbar-expand-lg navbar-light">
+            <nav className="navbar  navbar-expand-lg navbar-light">
 			<Link to = "/" className='navbar-brand'>HEALTHSYNC</Link>
 			
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,7 @@ export const Navbar = () => {
                 <div className="collapse navbar-collapse nav-content" id="navbarNav">
                     <ul className="navbar-nav">
 						<div className='auth-navs'>
-							<li className="nav-item active">
+							<li className="nav-item">
 								<Link to = "/">Home</Link>
 							</li>
 
@@ -92,9 +92,11 @@ export const Navbar = () => {
 											</li>
 										)
 									}
-									<li className="nav-item logout-nav" onClick={handleLogout}>
-										Logout
-									</li>
+									<div className='logout-nav-div'>
+										<li className="nav-item logout-nav" onClick={handleLogout}>
+											Logout
+										</li>
+									</div>
 								</div>
 							)
 						}
