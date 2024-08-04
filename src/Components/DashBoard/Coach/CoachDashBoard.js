@@ -46,14 +46,15 @@ export const CoachDashBoard = () =>  {
                 }
             };
             const response = await api.get(`Problem/GetProblems`, yourConfig);
-
             setProblemData(response.data);
+
         } catch (err) {
+            console.log(err);
             if(err.response.status === 404 && err.response.data === "No Problem Logs for today!") {
                 setErrorData("No Problem Logs for today!");
             }
             else{
-                toast.error("An error occurred while fetching data!");
+                console.error("An error occurred while fetching data!");
             }
         }
         setIsLoading(false);

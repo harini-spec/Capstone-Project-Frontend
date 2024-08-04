@@ -3,6 +3,7 @@ import api from '../../../Services/Axios';
 import "../../../Styles/AdminDashboardStyles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { toast, ToastContainer } from 'react-toastify';
 
 const AdminDashboard = () =>  {
   const [InactiveCoaches, setInactiveCoaches] = useState([]);
@@ -21,26 +22,30 @@ const AdminDashboard = () =>  {
 
     try {
       var response = await api.get(`Admin/GetAllInactiveCoaches`, yourConfig);
-      console.log(response.data);
       setInactiveCoaches(response.data);
     } catch (err) {
       console.log(err);
     }
   }
 
-  const ActivateCoach = async () => {
+  const ActivateCoach = async (coachId) => {
 	const yourConfig = {
 		headers: {
-			Authorization: "Bearer " + localStorage.getItem("token")
+		  Authorization: "Bearer " + localStorage.getItem("token")
 		}
-	};
+	  };
 	try{
-		var response = await api.get(`Admin/GetAllInactiveCoaches`, yourConfig);
-		console.log(response.data);
-		setInactiveCoaches(response.data);
+		var response = await api.put(`Admin/ActivateCoach?coachId=`+coachId, "", yourConfig);
+		if(response.status === 200){
+			toast.success("Coach Activated Successfully!");
+		}
+		GetAllInactiveCoaches();
 	}
 	catch(err){
-		console.log(err);
+		if(err.response.status === 422)
+			toast.error(err.response.data);
+		else 
+			console.log(err);
 	}
 }
 
@@ -66,6 +71,7 @@ const AdminDashboard = () =>  {
       )}
       <h1>Admin Dashboard</h1>
       <h5 className='text-center mb-4'>These Coaches are waiting for your approval</h5>
+	  <ToastContainer />
       
       <div className="row">
         {InactiveCoaches.length != 0 ? InactiveCoaches.map((coach, index) => {
@@ -79,7 +85,7 @@ const AdminDashboard = () =>  {
                     <p className="card-text">Gender: {coach.gender}</p>
                     <p className="card-text">Phone: {coach.phone}</p>
                     <p className="card-text">Email: {coach.email}</p>
-                    <button className='btn btn-success mt-3' onClick={ActivateCoach}><FontAwesomeIcon icon={faCheck} /></button>
+                    <button className='btn btn-success mt-3' onClick={() => ActivateCoach(coach.coachId)}><FontAwesomeIcon icon={faCheck} /></button>
                   </div>
                   <div className='coach-certificate'>
                     {
