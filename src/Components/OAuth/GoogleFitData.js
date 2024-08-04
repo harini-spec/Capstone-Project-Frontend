@@ -59,15 +59,14 @@ const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
           }, 0);
         };
 
-        setData(prevData => ({
-          ...prevData,
+        return {
           steps_Count: aggregateData('com.google.step_count.delta'),
           calories_Burned: aggregateData('com.google.calories.expended'),
-          sleep: aggregateData('com.google.sleep.segment')
-        }));
-        setLoggedData(data);
+          sleep: aggregateData('com.google.sleep.segment'),
+        };
       } catch (error) {
         console.error('Error fetching today\'s data:', error);
+        return {};
       }
     };
 
@@ -99,18 +98,26 @@ const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
         const latestHeight = heightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
         console.log("Latest height:", latestHeight); // Added logging
 
-        setData({
+        return {
           weight: latestWeight,
           height: latestHeight,
-        });
+        };
       } catch (error) {
         console.error('Error fetching weight and height data:', error);
+        return {};
       }
     };
 
-    fetchLatestWeightHeight();
-    fetchTodayData();
-  }, [token]);
+    const fetchData = async () => {
+      const todayData = await fetchTodayData();
+      const weightHeightData = await fetchLatestWeightHeight();
+      const combinedData = { ...todayData, ...weightHeightData };
+      setData(combinedData);
+      setLoggedData(combinedData);
+    };
+
+    fetchData();
+  }, [token, setLoggedData]);
 
   useEffect(() => {
     if (data.steps_Count !== null && data.calories_Burned !== null && data.sleep !== null && data.weight !== null && data.height !== null) {
@@ -138,10 +145,6 @@ const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
       if (response.status === 200) {
         console.log("Log added to DB successfully");
         setIsDataLogged(true); // Update state to indicate data has been logged
-        setLoggedData(prevData => ({
-          ...prevData,
-          bMI: 1 
-        }));
       }
     } catch (err) {
       console.log(err);
