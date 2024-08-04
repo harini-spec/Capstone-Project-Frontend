@@ -10,7 +10,6 @@ function GoogleFitComponent({ handleLoginSuccess }) {
 
       // Exchange authorization code for access token
       
-      console.log('Authorization code:', response.code);
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: {

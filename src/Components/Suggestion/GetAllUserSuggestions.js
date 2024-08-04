@@ -1,10 +1,10 @@
 import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthService } from '../../Services/useAuthService.js';
-import api from '../../Services/Axios.js';
 import '../../Styles/SuggestionStyles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { useAuthService } from '../../Services/useAuthService.js';
+import api from '../../Services/Axios.js';
 
 const GetAllUserSuggestions = () => {
 

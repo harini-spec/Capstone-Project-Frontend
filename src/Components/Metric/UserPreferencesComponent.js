@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import api from '../../Services/Axios';
+import '../../Styles/PrefStyles.css';
 import { icons } from '../../Data/IconData';
 import { colors } from '../../Data/ColorData';
-import '../../Styles/PrefStyles.css';
-import { toast, ToastContainer } from 'react-toastify';
+import api from '../../Services/Axios';
   
 export const UserPreferencesComponent = () =>  {
 

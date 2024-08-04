@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import '../../../Styles/GraphStyles.css';
-import api from '../../../Services/Axios';
-import { useUserPreference } from '../../hooks/useUserPreference';
-import "../../../Styles/ComponentStyles.css";
 import { ThreeCircles } from 'react-loader-spinner';
 import { CChart } from '@coreui/react-chartjs';
 import { ToastContainer } from 'react-toastify';
+import "../../../Styles/ComponentStyles.css";
+import '../../../Styles/GraphStyles.css';
+import { useUserPreference } from '../../hooks/useUserPreference';
+import api from '../../../Services/Axios';
 
 const GraphComponent = (props) => {
     

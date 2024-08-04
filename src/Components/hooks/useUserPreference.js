@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import api from "../../Services/Axios";
 import { toast } from 'react-toastify';
+import api from "../../Services/Axios";
 
 export const useUserPreference = (UserId) => {
     const [UserPreferences, setUserPreferences] = useState([]);

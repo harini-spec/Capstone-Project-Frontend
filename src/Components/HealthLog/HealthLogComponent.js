@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import '../../Styles/ErrorStyles.css';
+import '../../Styles/LogStyles.css';
 import { icons } from '../../Data/IconData.js';
 import api from '../../Services/Axios.js';
-import { toast, ToastContainer } from 'react-toastify';
-import '../../Styles/LogStyles.css';
 import { useMetric } from '../hooks/useMetric.js';
 import { useHealthLog } from '../hooks/useHealthLog.js';
 import { useColor } from '../hooks/useColor.js';
-import '../../Styles/ErrorStyles.css';
 import { useAuthService } from '../../Services/useAuthService.js';
 
 export const HealthLogComponent = (props) => {

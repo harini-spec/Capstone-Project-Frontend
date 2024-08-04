@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { ParseToken } from './ParseToken';
-import { toast } from 'react-toastify';
 
 export const useAuthService = () => {
     const [Role, setRole] = useState('');

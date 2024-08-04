@@ -1,9 +1,9 @@
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../Styles/AuthStyles.css';
-import Tracker from '../../Assets/Login.jpg';
-import '../../Styles/ErrorStyles.css';
 import { toast, ToastContainer } from 'react-toastify';
+import '../../Styles/AuthStyles.css';
+import '../../Styles/ErrorStyles.css';
+import Tracker from '../../Assets/Login.jpg';
 import api from '../../Services/Axios';
   
  export const LoginComponent = () =>  {

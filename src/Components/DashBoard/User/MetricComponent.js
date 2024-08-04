@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import '../../../Styles/MetricComponentStyles.css';
 import { colors } from '../../../Data/ColorData';
 import { icons } from '../../../Data/IconData';
 import { useHealthLog } from '../../hooks/useHealthLog';
-import { ToastContainer } from 'react-toastify';
   
 const MetricComponent = (props) =>  {
 
     useEffect(() => {
-        console.log("Is Data Logged:", props.isDataLogged);
         // console.log((props.preference.metricType.charAt(0).toLowerCase() + props.preference.metricType.slice(1)) in props.LoggedData);
     }, [props.isDataLogged]);
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import api from '../../../Services/Axios';
+import { toast, ToastContainer } from 'react-toastify';
 import "../../../Styles/AdminDashboardStyles.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { toast, ToastContainer } from 'react-toastify';
+import api from '../../../Services/Axios';
 
 const AdminDashboard = () =>  {
   const [InactiveCoaches, setInactiveCoaches] = useState([]);

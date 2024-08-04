@@ -13,8 +13,6 @@ const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
   useEffect(() => {
     if (!token) return; // Exit if token is not available
 
-    console.log("Access Token:", token);
-
     const fetchTodayData = async () => {
       const now = new Date();
       const startTime = new Date(now.setHours(0, 0, 0, 0)).toISOString(); // Start of today
@@ -81,9 +79,7 @@ const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
         });
 
         const weightResult = await weightResponse.json();
-        console.log("Weight result:", weightResult); // Added logging
         const latestWeight = weightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
-        console.log("Latest weight:", latestWeight); // Added logging
 
         const heightResponse = await fetch('https://www.googleapis.com/fitness/v1/users/me/dataSources/derived:com.google.height:com.google.android.gms:merge_height/datasets/0-9223372036854775807', {
           method: 'GET',
@@ -94,9 +90,7 @@ const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
         });
 
         const heightResult = await heightResponse.json();
-        console.log("Height result:", heightResult); // Added logging
         const latestHeight = heightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
-        console.log("Latest height:", latestHeight); // Added logging
 
         return {
           weight: latestWeight,
@@ -140,7 +134,6 @@ const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
         { metricType: "Weight", value: data.weight }
       ];
 
-      console.log("Log data:", logData); // Added logging
       const response = await api.post(`HealthLog/AddHealthLogDataFromGoogleFit`, logData, yourConfig);
       if (response.status === 200) {
         console.log("Log added to DB successfully");

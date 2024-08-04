@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import '../Styles/NavbarStyles.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link, useNavigate } from 'react-router-dom';
 import { useAuthService } from '../Services/useAuthService';
-import { toast } from 'react-toastify';
 import { ClearSessionItems } from '../Services/ClearSessionItems';
 
 export const Navbar = () => {

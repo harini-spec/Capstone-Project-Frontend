@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ThreeCircles } from 'react-loader-spinner';
+import { toast, ToastContainer } from 'react-toastify';
+import { useAuthService } from '../../../Services/useAuthService';
 import GraphComponent from '../User/GraphComponent';
 import '../../../Styles/UserDataStyles.css';
-import { toast, ToastContainer } from 'react-toastify';
-import api from '../../../Services/Axios';
-import { useAuthService } from '../../../Services/useAuthService';
-import { ThreeCircles } from 'react-loader-spinner';
 import '../../../Styles/UserDataStyles.css';
+import api from '../../../Services/Axios';
   
 export const UserDataComponentForCoach = () =>  {
 

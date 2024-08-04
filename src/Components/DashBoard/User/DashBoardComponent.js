@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import MetricComponent from './MetricComponent';
-import GraphComponent from './GraphComponent';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { ThreeCircles } from 'react-loader-spinner'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import "../../../Styles/ComponentStyles.css";
+import '../../../Styles/DashBoardStyles.css';
 import { useUserPreference } from '../../hooks/useUserPreference';
 import { MonthNamesData } from '../../../Data/MonthNamesData';
 import { useAuthService } from '../../../Services/useAuthService';
-import "../../../Styles/ComponentStyles.css";
-import '../../../Styles/DashBoardStyles.css';
-import { ToastContainer } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { ThreeCircles } from 'react-loader-spinner'
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { useSecrets } from '../../hooks/useSecrets';
+import MetricComponent from './MetricComponent';
+import GraphComponent from './GraphComponent';
 import GoogleFitComponent from '../../OAuth/GoogleFitComponent';
 import GoogleFitData from '../../OAuth/GoogleFitData';
 import api from '../../../Services/Axios';
-import { useSecrets } from '../../hooks/useSecrets';
 
 export const DashBoardComponent = () => {
 
@@ -43,7 +43,6 @@ export const DashBoardComponent = () => {
     const handleOAuthLoginSuccess = (access_token) => {
       setToken(access_token);
       addAccessTokenToDB(access_token);
-      console.log("Yolo:", access_token);
     };  
     
     const [UserPreferences, setUserPreferences] = useUserPreference(localStorage.getItem("userID"));
@@ -87,7 +86,6 @@ export const DashBoardComponent = () => {
             const response = await api.get(`OAuth/GetValidOAuthAccessToken`, yourConfig);
             if(response.status === 200) {
                 setIsTokenPresent(true);
-                console.log("true");
                 setToken(response.data.accessToken);
             }
         }

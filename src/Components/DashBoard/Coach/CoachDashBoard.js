@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, Navigate } from 'react-router-dom';
-import { useAuthService } from '../../../Services/useAuthService';
-import api from '../../../Services/Axios';
-import { toast, ToastContainer } from 'react-toastify';
-import '../../../Styles/CoachDashboardStyles.css';
 import { ThreeCircles } from 'react-loader-spinner'
+import { toast, ToastContainer } from 'react-toastify';
+import { useAuthService } from '../../../Services/useAuthService';
+import '../../../Styles/CoachDashboardStyles.css';
+import api from '../../../Services/Axios';
   
 export const CoachDashBoard = () =>  {
 

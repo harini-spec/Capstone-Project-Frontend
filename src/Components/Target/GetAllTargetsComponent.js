@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import api from '../../Services/Axios.js';
-import '../../Styles/TargetStyles.css';
 import { toast, ToastContainer } from 'react-toastify';
+import '../../Styles/TargetStyles.css';
 import { useMetric } from '../hooks/useMetric.js';
 import { useHealthLog } from '../hooks/useHealthLog.js';
 import { useAuthService } from '../../Services/useAuthService.js';  
+import api from '../../Services/Axios.js';
 
 export const GetAllTargetsComponent = () =>  {
 
