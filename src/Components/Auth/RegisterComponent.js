@@ -12,6 +12,7 @@ import api from '../../Services/Axios';
 
 	const [RegisterData, setRegisterData] = useState({gender: "Male"});
 	const [ErrorData, setErrorData] = useState({});
+	const [SelectedFile, setSelectedFile] = useState(null);
 
 	const selectRole = (Role) => {
 		if(RegisterData.role == Role) {
@@ -33,8 +34,24 @@ import api from '../../Services/Axios';
 			return;
 		}
 
+		if(RegisterData.role == "Coach" && !SelectedFile) {
+			toast.error("Upload Certificate");
+			return;
+		}
+
 		try {
-			await api.post(`User/RegisterUser`, RegisterData);
+			var response = await api.post(`User/RegisterUser`, RegisterData);
+
+            if (RegisterData.role === "Coach") {
+                const formData = new FormData();
+                formData.append('Certificate', SelectedFile);
+
+                await api.post(`Coach/UploadCertificate?CoachId=${response.data}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+            }
 
 			toast.success("Registration successful");
 			setTimeout(() => {
@@ -114,6 +131,10 @@ import api from '../../Services/Axios';
 		setRegisterData({...RegisterData, gender: event.target.value});
     };
 
+	const handleFileChange = (event) => {
+		setSelectedFile(event.target.files[0]);
+	};
+
 	return (
 	  <div className='auth-main-container'>
 		<ToastContainer />
@@ -126,6 +147,21 @@ import api from '../../Services/Axios';
 				<h3 className='text-center'>HOLA! AMIGO</h3>
 				<h5 className='text-center'>Let's get started</h5>
 				<form onSubmit={(e) => onSubmit(e)}>
+					<div className='row role mt-4'>
+						<div className='col user-col' style={{backgroundColor: RegisterData.role == "User" ? "rgb(203, 133, 41)" : "", 
+							borderColor: RegisterData.role ? "green" : "red",
+							color: RegisterData.role == "User" ? "white" : ""
+						 }} onClick={() => selectRole("User")}>
+							User
+						</div>
+
+						<div className='col coach-col' style={{backgroundColor: RegisterData.role == "Coach" ? "rgb(203, 133, 41)" : "",
+							borderColor: RegisterData.role ? "green" : "red",
+							color: RegisterData.role == "Coach" ? "white" : ""
+						 }} onClick={() => selectRole("Coach")}>
+							Coach
+						</div>
+					</div>
 					<div className='form-row mt-2'>
 							<div className='form-group col1'>
 								<input type="text" placeholder="Name" name="name" 
@@ -186,21 +222,12 @@ import api from '../../Services/Axios';
 							</div>
 					</div>
 
-					<div className='row role mt-4'>
-						<div className='col user-col' style={{backgroundColor: RegisterData.role == "User" ? "rgb(203, 133, 41)" : "", 
-							borderColor: RegisterData.role ? "green" : "red",
-							color: RegisterData.role == "User" ? "white" : ""
-						 }} onClick={() => selectRole("User")}>
-							User
-						</div>
-
-						<div className='col coach-col' style={{backgroundColor: RegisterData.role == "Coach" ? "rgb(203, 133, 41)" : "",
-							borderColor: RegisterData.role ? "green" : "red",
-							color: RegisterData.role == "Coach" ? "white" : ""
-						 }} onClick={() => selectRole("Coach")}>
-							Coach
-						</div>
-					</div>
+					{
+						RegisterData.role == "Coach" && 
+							<div className='form-row mt-4 d-flex flex-wrap'>
+								<label for="certificate" className='pt-1 mt-2'>Certificate Proof:</label> <input className='form-group' id="certificate" type="file" placeholder='Upload your Certificate' onChange={handleFileChange} />
+							</div>
+					}
 
 					<div className='form-row mt-2'>
 						<button className='btn btn-light'>Register</button>
