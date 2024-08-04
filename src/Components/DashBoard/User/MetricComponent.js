@@ -10,6 +10,8 @@ const MetricComponent = (props) =>  {
 
     useEffect(() => {
         console.log("Is Data Logged:", props.isDataLogged);
+        console.log("Logged Data:", props.LoggedData);
+        console.log((props.preference.metricType.charAt(0).toLowerCase() + props.preference.metricType.slice(1)) in props.LoggedData);
     }, [props.isDataLogged]);
 
     const [HealthLog, setHealthLog] = useHealthLog(props.preference.preferenceId, true, props.isDataLogged);
@@ -69,7 +71,7 @@ const MetricComponent = (props) =>  {
                                     </Link>
                                 </button>
                             :
-                                props.isDataLogged? 
+                                props.isDataLogged && ((props.preference.metricType.charAt(0).toLowerCase() + props.preference.metricType.slice(1)) in props.LoggedData)? 
                                     <button className="btn" style={{backgroundColor: colors["color" + props.index], cursor: 'not-allowed' }} onClick={() => {}}>
                                         Update 
                                     </button>

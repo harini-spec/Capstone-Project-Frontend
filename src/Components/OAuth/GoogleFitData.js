@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../Services/Axios';
 
-const GoogleFitData = ({ token, setIsDataLogged }) => {
+const GoogleFitData = ({ token, setIsDataLogged, setLoggedData }) => {
   const [data, setData] = useState({
-    steps: null,
-    caloriesExpended: null,
+    steps_Count: null,
+    calories_Burned: null,
     sleep: null,
     weight: null,
-    height: null,
+    height: null
   });
 
   useEffect(() => {
@@ -61,11 +61,11 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
 
         setData(prevData => ({
           ...prevData,
-          steps: aggregateData('com.google.step_count.delta'),
-          caloriesExpended: aggregateData('com.google.calories.expended'),
+          steps_Count: aggregateData('com.google.step_count.delta'),
+          calories_Burned: aggregateData('com.google.calories.expended'),
           sleep: aggregateData('com.google.sleep.segment')
         }));
-
+        setLoggedData(data);
       } catch (error) {
         console.error('Error fetching today\'s data:', error);
       }
@@ -113,7 +113,7 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
   }, [token]);
 
   useEffect(() => {
-    if (data.steps !== null && data.caloriesExpended !== null && data.sleep !== null && data.weight !== null && data.height !== null) {
+    if (data.steps_Count !== null && data.calories_Burned !== null && data.sleep !== null && data.weight !== null && data.height !== null) {
       addLogToDB(data);
     }
   }, [data]);
@@ -126,8 +126,8 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
         }
       };
       const logData = [
-        { metricType: "Steps_Count", value: data.steps },
-        { metricType: "Calories_Burned", value: data.caloriesExpended },
+        { metricType: "Steps_Count", value: data.steps_Count },
+        { metricType: "Calories_Burned", value: data.calories_Burned },
         { metricType: "Sleep_Hours", value: data.sleep },
         { metricType: "Height", value: data.height },
         { metricType: "Weight", value: data.weight }
@@ -138,6 +138,10 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
       if (response.status === 200) {
         console.log("Log added to DB successfully");
         setIsDataLogged(true); // Update state to indicate data has been logged
+        setLoggedData(prevData => ({
+          ...prevData,
+          bMI: 1 
+        }));
       }
     } catch (err) {
       console.log(err);

@@ -21,6 +21,7 @@ export const DashBoardComponent = () => {
     const [isDataLogged, setIsDataLogged] = useState(false);
     const [token, setToken] = useState(null);
     const Secret = useSecrets();
+    const [LoggedData, setLoggedData] = useState({});
 
     const addAccessTokenToDB = async (token) => {
         try {
@@ -119,7 +120,7 @@ export const DashBoardComponent = () => {
                         <div className='google-fit-container'>
                             <GoogleOAuthProvider clientId={Secret.clientId}>
                                 {!IsTokenPresent && <GoogleFitComponent handleLoginSuccess={handleOAuthLoginSuccess} />}
-                                {token && <GoogleFitData token={token} setIsDataLogged={setIsDataLogged} />}
+                                {token && <GoogleFitData token={token} setIsDataLogged={setIsDataLogged} setLoggedData={setLoggedData} />}
                             </GoogleOAuthProvider>
                         </div>
                     </div>
@@ -128,7 +129,7 @@ export const DashBoardComponent = () => {
                     {
                         UserPreferences.map((preference, key) => {
                             return(
-                                <MetricComponent key={preference.id} preference={preference} index={key} isDataLogged={isDataLogged}/>
+                                <MetricComponent key={preference.id} preference={preference} index={key} isDataLogged={isDataLogged} LoggedData={LoggedData} />
                             )
                     })
                     }
