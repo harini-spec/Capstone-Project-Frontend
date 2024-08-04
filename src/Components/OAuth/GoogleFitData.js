@@ -59,11 +59,12 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
           }, 0);
         };
 
-        setData({
+        setData(prevData => ({
+          ...prevData,
           steps: aggregateData('com.google.step_count.delta'),
           caloriesExpended: aggregateData('com.google.calories.expended'),
-          sleep: aggregateData('com.google.sleep.segment'),
-        });
+          sleep: aggregateData('com.google.sleep.segment')
+        }));
 
       } catch (error) {
         console.error('Error fetching today\'s data:', error);
@@ -98,18 +99,17 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
         const latestHeight = heightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
         console.log("Latest height:", latestHeight); // Added logging
 
-        setData(prevData => ({
-          ...prevData,
+        setData({
           weight: latestWeight,
           height: latestHeight,
-        }));
+        });
       } catch (error) {
         console.error('Error fetching weight and height data:', error);
       }
     };
 
-    fetchTodayData();
     fetchLatestWeightHeight();
+    fetchTodayData();
   }, [token]);
 
   useEffect(() => {
