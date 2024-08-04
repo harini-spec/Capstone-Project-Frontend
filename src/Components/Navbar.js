@@ -73,15 +73,25 @@ export const Navbar = () => {
 												</div>
 											)
 										:
-										Role == 'Coach' &&
-											<li className="nav-item">
+										Role == 'Coach' ?
+											(<li className="nav-item">
 												<Link to = "/CoachDashBoard">Coach DashBoard</Link>
-											</li>
+											</li>)
+										:
+										Role == 'Admin' &&
+											(<li className="nav-item">
+												<Link to = "/AdminDashboard">Admin DashBoard</Link>
+											</li>)
 									}
 									
-									<li className="nav-item">
-										<Link to = "/UserPreferences">Monitor Preferences</Link>
-									</li>
+									{
+										(Role == 'User' || Role == "Coach") &&
+										(
+											<li className="nav-item">
+												<Link to = "/UserPreferences">Monitor Preferences</Link>
+											</li>
+										)
+									}
 									<li className="nav-item logout-nav" onClick={handleLogout}>
 										Logout
 									</li>

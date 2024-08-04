@@ -1,0 +1,82 @@
+/* Admin Dashboard Styles */
+
+.admin-dashboard-container {
+    min-height: 100vh;
+    height: auto;
+    padding: 20px;
+  }
+  
+  .admin-dashboard-container h1,
+  .admin-dashboard-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .coach-card {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .card {
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+  
+  .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .coach-details {
+    flex: 1;
+    padding: 10px;
+  }
+  
+  .coach-details h5 {
+    margin-bottom: 10px;
+  }
+  
+  .coach-details p {
+    margin: 5px 0;
+  }
+  
+  .coach-certificate {
+    flex: 0 0 150px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .coach-certificate img {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .fullscreen-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+  }
+  
+  .fullscreen-container img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+  }
+  
+  .backdrop-blur {
+    filter: blur(10px);
+  }
+  
+  

@@ -28,17 +28,21 @@ import api from '../../Services/Axios';
 			localStorage.setItem("role", response.data.role);
 			localStorage.setItem("IsPreferenceSet", response.data.isPreferenceSet);
 
-			if(response.data.isPreferenceSet == true){
+			if(response.data.role == "Admin")
+				Navigate('/AdminDashBoard');
+			else if(response.data.isPreferenceSet == true)
 				if(response.data.role == "User")
 					Navigate('/DashBoard');
-				else
+				else if(response.data.role == "Coach")
 					Navigate('/CoachDashBoard');
-			}
 			else
 				Navigate('/UserPreferences');
 
 		} catch (err) {
-			if(err.response.status == 401)
+			console.log(err);
+			if(err.response.data.errorMessage === "Your account is not activated yet")
+				toast.error("Your account is not activated yet"); 
+			else if(err.response.status == 401)
 				toast.error("Invalid Credentials");
 			else
 				toast.error("Login failed");
