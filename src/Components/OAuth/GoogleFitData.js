@@ -83,6 +83,7 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
         const weightResult = await weightResponse.json();
         console.log("Weight result:", weightResult); // Added logging
         const latestWeight = weightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
+        console.log("Latest weight:", latestWeight); // Added logging
 
         const heightResponse = await fetch('https://www.googleapis.com/fitness/v1/users/me/dataSources/derived:com.google.height:com.google.android.gms:merge_height/datasets/0-9223372036854775807', {
           method: 'GET',
@@ -95,6 +96,7 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
         const heightResult = await heightResponse.json();
         console.log("Height result:", heightResult); // Added logging
         const latestHeight = heightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
+        console.log("Latest height:", latestHeight); // Added logging
 
         setData(prevData => ({
           ...prevData,
