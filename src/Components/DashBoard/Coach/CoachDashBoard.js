@@ -22,7 +22,7 @@ export const CoachDashBoard = () =>  {
                 navigate('/Login');
                 return;
             }
-            else if (localStorage.getItem("Role") === "User" || localStorage.getItem("Role") === "Admin") {
+            else if (localStorage.getItem("role") === "User" || localStorage.getItem("role") === "Admin") {
                 navigate('/Login');
                 return;
             }

@@ -13,8 +13,8 @@ const GetAllUserSuggestions = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [ErrorMsg, setErrorMsg] = useState("");
   const [Role, IsExpired] = useAuthService();
-  const [sortOrder, setSortOrder] = useState('asc'); // State to manage sort order
-  const [searchTerm, setSearchTerm] = useState(''); // State to manage search term
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [searchTerm, setSearchTerm] = useState(''); 
 
   useEffect(() => {
     const checkAuthentication = () => {
@@ -22,7 +22,7 @@ const GetAllUserSuggestions = () => {
         navigate('/Login');
         return;
       }
-      else if (localStorage.getItem("Role") === "User" || localStorage.getItem("Role") === "Admin") {
+      else if (localStorage.getItem("role") === "User" || localStorage.getItem("role") === "Admin") {
         navigate('/Login');
         return;
       }

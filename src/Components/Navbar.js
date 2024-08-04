@@ -60,7 +60,7 @@ export const Navbar = () => {
 							(
 								<div className='auth-navs'>
 									{
-										Role == 'User'
+										localStorage.getItem("role") === 'User'
 										?
 											(
 												<div className='auth-navs'>
@@ -73,12 +73,12 @@ export const Navbar = () => {
 												</div>
 											)
 										:
-										Role == 'Coach' ?
+										localStorage.getItem("role") == 'Coach' ?
 											(<li className="nav-item">
 												<Link to = "/CoachDashBoard">Coach DashBoard</Link>
 											</li>)
 										:
-										Role == 'Admin' &&
+										localStorage.getItem("role") == 'Admin' &&
 											(<li className="nav-item">
 												<Link to = "/AdminDashboard">Admin DashBoard</Link>
 											</li>)
@@ -92,16 +92,22 @@ export const Navbar = () => {
 											</li>
 										)
 									}
-									<div className='logout-nav-div'>
-										<li className="nav-item logout-nav" onClick={handleLogout}>
-											Logout
-										</li>
 									</div>
-								</div>
 							)
 						}
 						</div>
-                    </ul>
+					</ul>
+					{
+						localStorage.getItem('token') &&
+						(
+							<div className='logout-nav-div'>
+								<li className="nav-item logout-nav" onClick={handleLogout}>
+									Logout
+								</li>
+							</div>
+						)
+					}
+									
                 </div>
             </nav>
         </div>

@@ -14,7 +14,7 @@ export const UserPreferencesComponent = () =>  {
     const [SelectedMetrics, setSelectedMetrics] = useState([]);
 
     useEffect(() => {
-        if(localStorage.getItem("Role") !== "User" || localStorage.getItem("Role") !== "Coach")
+        if(localStorage.getItem("role") !== "User" || localStorage.getItem("role") !== "Coach")
             Navigate('/AdminDashBoard');
         else if(!localStorage.getItem("token"))
             Navigate('/Login');
