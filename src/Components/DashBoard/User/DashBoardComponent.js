@@ -13,12 +13,14 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import GoogleFitComponent from '../../OAuth/GoogleFitComponent';
 import GoogleFitData from '../../OAuth/GoogleFitData';
 import api from '../../../Services/Axios';
+import { useSecrets } from '../../hooks/useSecrets';
 
 export const DashBoardComponent = () => {
 
     const navigate = useNavigate();
     const [isDataLogged, setIsDataLogged] = useState(false);
     const [token, setToken] = useState(null);
+    const Secret = useSecrets();
 
     const addAccessTokenToDB = async (token) => {
         try {
@@ -115,7 +117,7 @@ export const DashBoardComponent = () => {
                     <div className='overview-header-line'>
                         <p className='date-para'>{MonthNamesData[new Date().getMonth()]} {new Date().getDate()}, {new Date().getFullYear()}</p>
                         <div className='google-fit-container'>
-                            <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+                            <GoogleOAuthProvider clientId={Secret.clientId}>
                                 {!IsTokenPresent && <GoogleFitComponent handleLoginSuccess={handleOAuthLoginSuccess} />}
                                 {token && <GoogleFitData token={token} setIsDataLogged={setIsDataLogged} />}
                             </GoogleOAuthProvider>

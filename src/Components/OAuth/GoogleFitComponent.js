@@ -1,12 +1,15 @@
 import { useGoogleLogin } from '@react-oauth/google';
-
+import { useSecrets } from '../hooks/useSecrets';
 
 function GoogleFitComponent({ handleLoginSuccess }) {
+
+  const Secret = useSecrets();
+
   const login = useGoogleLogin({
     onSuccess: async response => {
-    //   console.log("Authorization code response:", response);
 
       // Exchange authorization code for access token
+      
       const tokenResponse = await fetch('https://oauth2.googleapis.com/token', {
         method: 'POST',
         headers: {
@@ -14,8 +17,8 @@ function GoogleFitComponent({ handleLoginSuccess }) {
         },
         body: new URLSearchParams({
           code: response.code,
-          client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-          client_secret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+          client_id: Secret.clientId,
+          client_secret: Secret.clientSecret,
           redirect_uri: 'http://localhost:3000',
           grant_type: 'authorization_code',
         }),

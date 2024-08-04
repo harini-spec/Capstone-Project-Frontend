@@ -16,7 +16,6 @@
     font-size: 1.3rem;
     border-radius: 10px;
     margin: 0px 2%;
-    border-radius: 10px;
     display: flex;
 }
 
@@ -38,8 +37,45 @@
     padding-left: 10px;
 }
 
+.sort-controls button{
+    background-color: rgb(203,133,41);
+    border: none;
+    font-size: 1.2rem;
+    margin: 3px;
+}
+
+.suggestion-controls{
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0px;
+}
+
+.search-controls{
+    flex: 85% !important;
+    margin-left: 33px;
+}
+
+.sort-controls{
+    flex: 20% !important;
+    text-align: right !important;
+    margin-right: 38px;
+}
+
 @media screen and (max-width: 500px){
     .suggestion-list-items{
         flex-wrap: wrap;
+    }
+
+    .suggestion-controls{
+        flex-wrap: wrap;
+    }
+
+    .sort-controls{
+        margin: 10px 0;
+        text-align: center !important;
+    }
+
+    .suggestion-header{
+        margin-top: 50px;
     }
 }

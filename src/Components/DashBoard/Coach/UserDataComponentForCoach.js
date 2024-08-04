@@ -74,7 +74,6 @@ export const UserDataComponentForCoach = () =>  {
                 }
             };
             const response = await api.get(`Problem/GetCoachSuggestionsForUser?UserId=${UserId}`, yourConfig);
-            console.log(response.data);
 
             setCoachSuggestions(response.data);
         } catch (err) {

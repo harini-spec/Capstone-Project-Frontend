@@ -46,7 +46,6 @@ export const CoachDashBoard = () =>  {
                 }
             };
             const response = await api.get(`Problem/GetProblems`, yourConfig);
-            console.log(response.data);
 
             setProblemData(response.data);
         } catch (err) {

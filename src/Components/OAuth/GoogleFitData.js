@@ -5,7 +5,9 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
   const [data, setData] = useState({
     steps: null,
     caloriesExpended: null,
-    sleep: null
+    sleep: null,
+    weight: null,
+    height: null,
   });
 
   useEffect(() => {
@@ -68,11 +70,48 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
       }
     };
 
+    const fetchLatestWeightHeight = async () => {
+      try {
+        const weightResponse = await fetch('https://www.googleapis.com/fitness/v1/users/me/dataSources/derived:com.google.weight:com.google.android.gms:merge_weight/datasets/0-9223372036854775807', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const weightResult = await weightResponse.json();
+        console.log("Weight result:", weightResult); // Added logging
+        const latestWeight = weightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
+
+        const heightResponse = await fetch('https://www.googleapis.com/fitness/v1/users/me/dataSources/derived:com.google.height:com.google.android.gms:merge_height/datasets/0-9223372036854775807', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const heightResult = await heightResponse.json();
+        console.log("Height result:", heightResult); // Added logging
+        const latestHeight = heightResult.point.slice(-1)[0]?.value[0]?.fpVal || null;
+
+        setData(prevData => ({
+          ...prevData,
+          weight: latestWeight,
+          height: latestHeight,
+        }));
+      } catch (error) {
+        console.error('Error fetching weight and height data:', error);
+      }
+    };
+
     fetchTodayData();
+    fetchLatestWeightHeight();
   }, [token]);
 
   useEffect(() => {
-    if (data.steps !== null && data.caloriesExpended !== null && data.sleep !== null) {
+    if (data.steps !== null && data.caloriesExpended !== null && data.sleep !== null && data.weight !== null && data.height !== null) {
       addLogToDB(data);
     }
   }, [data]);
@@ -84,12 +123,15 @@ const GoogleFitData = ({ token, setIsDataLogged }) => {
           Authorization: "Bearer " + localStorage.getItem("token")
         }
       };
-      var logData = [
+      const logData = [
         { metricType: "Steps_Count", value: data.steps },
         { metricType: "Calories_Burned", value: data.caloriesExpended },
-        { metricType: "Sleep_Hours", value: data.sleep }
+        { metricType: "Sleep_Hours", value: data.sleep },
+        { metricType: "Height", value: data.height },
+        { metricType: "Weight", value: data.weight }
       ];
 
+      console.log("Log data:", logData); // Added logging
       const response = await api.post(`HealthLog/AddHealthLogDataFromGoogleFit`, logData, yourConfig);
       if (response.status === 200) {
         console.log("Log added to DB successfully");
