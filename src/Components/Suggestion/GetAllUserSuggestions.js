@@ -23,13 +23,13 @@ const GetAllUserSuggestions = () => {
         return;
       }
 
-      if (localStorage.getItem("IsPreferenceSet") === "false") {
-        navigate('/UserPreferences');
+      if (Role === "Coach" || Role === "Admin") {
+        navigate('/Login');
         return;
       }
 
-      if (Role === "Coach") {
-        navigate('/Login');
+      if (localStorage.getItem("IsPreferenceSet") === "false") {
+        navigate('/UserPreferences');
         return;
       }
 

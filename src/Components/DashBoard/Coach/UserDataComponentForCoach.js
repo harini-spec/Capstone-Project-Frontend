@@ -26,14 +26,14 @@ export const UserDataComponentForCoach = () =>  {
                 navigate('/Login');
                 return;
             }
-    
-            if (localStorage.getItem("IsPreferenceSet") === "false") {
-                navigate('/UserPreferences');
+
+            if (Role === "User" || Role === "Admin") {
+                navigate('/Login');
                 return;
             }
     
-            if (Role === "User") {
-                navigate('/Login');
+            if (localStorage.getItem("IsPreferenceSet") === "false") {
+                navigate('/UserPreferences');
                 return;
             }
             

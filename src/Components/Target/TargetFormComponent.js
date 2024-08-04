@@ -30,13 +30,13 @@ export const TargetFormComponent = (props) =>  {
                 return;
             }
     
-            if (localStorage.getItem("IsPreferenceSet") === "false") {
-                Navigate('/UserPreferences');
+            if (Role === "Coach" || Role === "Admin") {
+                Navigate('/Login');
                 return;
             }
-    
-            if (Role === "Coach") {
-                Navigate('/Login');
+
+            if (localStorage.getItem("IsPreferenceSet") === "false") {
+                Navigate('/UserPreferences');
                 return;
             }
 
