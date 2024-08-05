@@ -70,6 +70,9 @@ export const Navbar = () => {
 													<li>
 														<Link to = "/UserSuggestions">Suggestions</Link>
 													</li>
+													<li>
+														<Link to = "/HealthBot">HealthBot</Link>
+													</li>
 												</div>
 											)
 										:

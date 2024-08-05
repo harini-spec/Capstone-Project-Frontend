@@ -18,6 +18,7 @@ import { ErrorPageComponent } from './Components/Error/ErrorPageComponent';
 import { CoachDashBoard } from './Components/DashBoard/Coach/CoachDashBoard';
 import { UserDataComponentForCoach } from './Components/DashBoard/Coach/UserDataComponentForCoach';
 import AdminDashboard from './Components/DashBoard/Admin/AdminDashboard';
+import { HealthBotComponent } from './Components/HealthBot/HealthBotComponent';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
           <Route path="/CoachDashBoard" element={<CoachDashBoard/>}/>
           <Route path="/GetUserGraph/:UserId" element={<UserDataComponentForCoach/>} />
           <Route path="/AdminDashBoard" element={<AdminDashboard/>} />
+          <Route path="/HealthBot" element={<HealthBotComponent/>} />
         </Routes>
       </BrowserRouter>
     </div>
