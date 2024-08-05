@@ -18,11 +18,7 @@ const GetAllUserSuggestions = () => {
 
   useEffect(() => {
     const checkAuthentication = () => {
-      if (!localStorage.getItem("token") || IsExpired || Role === "Coach") {
-        navigate('/Login');
-        return;
-      }
-      else if (localStorage.getItem("role") === "User" || localStorage.getItem("role") === "Admin") {
+      if (!localStorage.getItem("token") || IsExpired || Role === "Coach" || localStorage.getItem("role") === "Admin") {
         navigate('/Login');
         return;
       }
