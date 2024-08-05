@@ -30,14 +30,16 @@ import api from '../../Services/Axios';
 
 			if(response.data.role == "Admin")
 				Navigate('/AdminDashBoard');
+			else if(response.data.isPreferenceSet == false){
+				Navigate('/UserPreferences');
+			}
 			else if(response.data.isPreferenceSet == true){
 				if(response.data.role == "User")
 					Navigate('/DashBoard');
 				else if(response.data.role == "Coach")
 					Navigate('/CoachDashBoard');
 			}
-			else
-				Navigate('/UserPreferences');
+				
 
 		} catch (err) {
 			console.log(err);

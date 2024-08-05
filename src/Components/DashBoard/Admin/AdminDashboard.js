@@ -17,8 +17,7 @@ const AdminDashboard = () =>  {
   useEffect(() => {
       const checkAuthentication = () => {
         setTimeout(() => {
-          console.log(Role);
-          console.log(IsExpired);
+          console.log("Hello");
         }, 2000);
 
           if (!localStorage.getItem("token") || IsExpired || Role === "User" || Role === "Coach") {
