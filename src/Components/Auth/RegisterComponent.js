@@ -149,14 +149,14 @@ import api from '../../Services/Axios';
 				<form onSubmit={(e) => onSubmit(e)}>
 					<div className='row role mt-4'>
 						<div className='col user-col' style={{backgroundColor: RegisterData.role == "User" ? "rgb(203, 133, 41)" : "", 
-							borderColor: RegisterData.role ? "green" : "red",
+							borderColor: "gray",
 							color: RegisterData.role == "User" ? "white" : ""
 						 }} onClick={() => selectRole("User")}>
 							User
 						</div>
 
 						<div className='col coach-col' style={{backgroundColor: RegisterData.role == "Coach" ? "rgb(203, 133, 41)" : "",
-							borderColor: RegisterData.role ? "green" : "red",
+							borderColor: "gray",
 							color: RegisterData.role == "Coach" ? "white" : ""
 						 }} onClick={() => selectRole("Coach")}>
 							Coach

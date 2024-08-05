@@ -5,7 +5,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useAuthService } from '../../../Services/useAuthService';
 import GraphComponent from '../User/GraphComponent';
 import '../../../Styles/UserDataStyles.css';
-import '../../../Styles/UserDataStyles.css';
 import api from '../../../Services/Axios';
   
 export const UserDataComponentForCoach = () =>  {
@@ -138,39 +137,45 @@ export const UserDataComponentForCoach = () =>  {
 
         {ErrorData.LogError && !isLoading ? <div className='alert alert-success mt-4'>No Problem Logs for today!</div>:
             <div className="userdata-main-container">
-                <h2 className='text-center mt-4 mb-4'>User Report</h2>
-                <div className='userdata-container' id={UserId}>
-                    <div className='userdata-row'>
-                        <div className='userdata-item-row'>
-                            <h4>Name: </h4>
-                            <p>{UserData.userName}</p>
+                <h2 className='text-center mt-4'>USER REPORT</h2>
+                <div className='userdata-card-container'>
+                    <div className='userdata-container' id={UserId}>
+                        <hr/>
+                        <div className='userdata-row'>
+                            <div className='userdata-item-row'>
+                                <h5>Name: </h5>
+                                <p>{UserData.userName}</p>
+                            </div>
+                            <div className='userdata-item-row'>
+                                <h5>Age: </h5>
+                                <p>{UserData.age}</p>
+                            </div>
+                            <div className='userdata-item-row'>
+                                <h5>Gender: </h5>
+                                <p>{UserData.gender}</p>
+                            </div>
                         </div>
-                        <div className='userdata-item-row'>
-                            <h4>Age: </h4>
-                            <p>{UserData.age}</p>
-                        </div>
-                        <div className='userdata-item-row'>
-                            <h4>Gender: </h4>
-                            <p>{UserData.gender}</p>
-                        </div>
-                    </div>
 
-                    <h4>Problems</h4>
-                    <div className='problem-container'>
-                        {UserData.metricsWithProblem && UserData.metricsWithProblem.map((problemMetric, index) => {
-                            return (
-                                <div key={index} className='problem-row'>
-                                    {problemMetric.replace(/_/g, " ")}
-                                </div>
-                            )
-                        })}
+                        <div className='problem-container'>
+                            <h5 className='text-center'>Problems</h5>
+                            <div className='problem-main-row'>
+                                {UserData.metricsWithProblem && UserData.metricsWithProblem.map((problemMetric, index) => {
+                                    return (
+                                        <div key={index} className='problem-row'>
+                                            {problemMetric.replace(/_/g, " ")}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                        <hr/>
                     </div>
                 </div>
                 <div className='graph-container'>
                     <GraphComponent UserId={UserId}/>
                 </div>
                 <div className='Suggestion-container'>
-                    <h2 className='text-center mt-4 mb-4'>Your Suggestions</h2>
+                    <h2 className='mt-4 mb-4'>Your Past Suggestions</h2>
                     {
                         ErrorData.SuggestionError && !isLoading ? <div className='alert alert-success mt-4'>No Suggestions found!</div>:
                         <div className='coach-suggestion-container'>
