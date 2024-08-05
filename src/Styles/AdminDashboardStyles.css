@@ -18,13 +18,13 @@
     justify-content: center;
   }
   
-  .card {
+  .admin-card {
     width: 90%;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     border-radius: 10px;
   }
   
-  .card-body {
+  .admin-card-body {
     display: flex;
     justify-content: space-between;
     align-items: center;

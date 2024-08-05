@@ -14,8 +14,6 @@ export const UserPreferencesComponent = () =>  {
     const [SelectedMetrics, setSelectedMetrics] = useState([]);
 
     useEffect(() => {
-        console.log("INnnnnnnnnnnnnnnnnn");
-        console.log("Roleeeeeeeeeeeee",localStorage.getItem("role"));
         if(localStorage.getItem("role") === "Admin")
         {
             console.log("Yolo");    

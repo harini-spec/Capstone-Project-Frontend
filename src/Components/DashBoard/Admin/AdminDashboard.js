@@ -93,8 +93,8 @@ const AdminDashboard = () =>  {
         {InactiveCoaches.length != 0 ? InactiveCoaches.map((coach, index) => {
           return (
             <div className='coach-card col-md-6' key={index}>
-              <div className="card">
-                <div className="card-body">
+              <div className="card admin-card">
+                <div className="card-body admin-card-body">
                   <div className='coach-details'>
                     <h5 className="card-title mb-3">{coach.name}</h5>
                     <p className="card-text">Age: {coach.age}</p>

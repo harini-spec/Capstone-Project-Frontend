@@ -127,6 +127,7 @@ export const HealthLogComponent = (props) => {
                       <br/>
                       <h3 className='text-center' style={{color: Color}}> {Metric.metricType && icons[Metric.metricType]} {Metric.metricType && Metric.metricType.replace(/_/g, " ")}</h3>
                       <div className='card-body'>
+                        <br/>
                         <h6 className="log-header pb-3 text-center">{new Date().toJSON().slice(0, 10)} Log Details</h6>
 
                           <form onSubmit={(e) => onSubmit(e)}>
